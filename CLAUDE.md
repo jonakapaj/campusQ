@@ -152,7 +152,7 @@ Agreed before Milestone 1 (2026-11-24):
   `migrate` until the custom User model lands (slice 1b).
 
 Agreed 2026-11-25:
-- Email verification uses a 6-character code, not a link. Signup still asks for
+- Email verification uses an 8-character code (XXXX-XXXX), not a link. Signup still asks for
   email + password; the code must be entered in the same browser session.
   allauth's "change email at the code step" stays off (it skips our domain check).
 - Outgoing email: Brevo SMTP (free tier), configured only through env vars.
