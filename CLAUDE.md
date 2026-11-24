@@ -151,6 +151,15 @@ Agreed before Milestone 1 (2026-11-24):
 - `AUTH_USER_MODEL` must exist before the first `migrate`. Don't run
   `migrate` until the custom User model lands (slice 1b).
 
+Agreed 2026-11-25:
+- Email verification uses a 6-character code, not a link. Signup still asks for
+  email + password; the code must be entered in the same browser session.
+  allauth's "change email at the code step" stays off (it skips our domain check).
+- Outgoing email: Brevo SMTP (free tier), configured only through env vars.
+  Locally the console backend stays the default. Production sender domain with
+  SPF/DKIM is decided at Milestone 5.
+- Compose project is pinned to `name: campusq`.
+
 Known email domains (researched 2026-11-24; verify before seeding):
 - University of Tirana: students get `name_surname.<faculty>student@unitir.edu.al`
   (faculty code is in the local part, not a subdomain). Confirmed on unitir.edu.al.
@@ -171,6 +180,7 @@ Known email domains (researched 2026-11-24; verify before seeding):
        - [x] 1b custom User, University, UniversityDomain, admin
        - [x] 1c domain policy + signup/login (allauth)
        - [x] 1d email verification + verified-only guard
+       - [x] 1e verification by code, SMTP (Brevo) config, compose name pinned
 2. [ ] **Profiles & communities**: profiles, university and course pages,
        follow users and courses
 3. [ ] **Feed & posts**: posts with Markdown and images, comments, reactions,
