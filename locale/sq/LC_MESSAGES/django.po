@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 20:29+0100\n"
+"POT-Creation-Date: 2026-11-24 21:01+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -19,11 +19,35 @@ msgstr "Shqip"
 msgid "English"
 msgstr "Anglisht"
 
+msgid "Only with a university email"
+msgstr "Vetëm me email universitar"
+
 msgid "Welcome to CampusQ"
 msgstr "Mirë se vini në CampusQ"
 
 msgid "The community for students and professors of Albanian universities."
 msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
+
+msgid "Sign-up opens soon"
+msgstr "Regjistrimi hapet së shpejti"
+
+msgid "Your university community"
+msgstr "Komuniteti i universitetit tënd"
+
+msgid "Join your university, follow courses and connect with classmates."
+msgstr "Bashkohu me universitetin tënd, ndiq lëndët dhe lidhu me shokët e kursit."
+
+msgid "Questions and answers"
+msgstr "Pyetje dhe përgjigje"
+
+msgid "Ask about courses and exams, anonymously if you prefer."
+msgstr "Pyet për lëndët dhe provimet, edhe në mënyrë anonime nëse dëshiron."
+
+msgid "Verified professors"
+msgstr "Pedagogë të verifikuar"
+
+msgid "Professors are verified by an admin, and their answers carry a badge."
+msgstr "Pedagogët verifikohen nga një administrator dhe përgjigjet e tyre kanë një shenjë dalluese."
 
 msgid "Language"
 msgstr "Gjuha"

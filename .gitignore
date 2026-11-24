@@ -9,6 +9,8 @@ __pycache__/
 htmlcov/
 
 # Django
+.bin/
+static/css/
 staticfiles/
 media/
 *.mo

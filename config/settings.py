@@ -88,6 +88,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# static/css/app.css is built by ./scripts/tailwind.sh (not committed).
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # --- Email ------------------------------------------------------------------
 

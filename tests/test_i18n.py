@@ -12,7 +12,7 @@ def test_albanian_is_the_default(client: Client) -> None:
 
     assert response.status_code == 200
     assert response["Content-Language"] == "sq"
-    assert '<html lang="sq">' in response.content.decode()
+    assert 'lang="sq"' in response.content.decode()
     assert ALBANIAN_HEADING in response.content.decode()
 
 

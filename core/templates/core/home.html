@@ -2,6 +2,29 @@
 {% load i18n %}
 
 {% block content %}
-  <h1>{% translate "Welcome to CampusQ" %}</h1>
-  <p>{% translate "The community for students and professors of Albanian universities." %}</p>
+  <section class="mx-auto max-w-2xl text-center">
+    <p class="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700 ring-1 ring-brand-100 dark:bg-brand-500/10 dark:text-brand-100 dark:ring-brand-500/20">
+      <span class="size-1.5 rounded-full bg-brand-500" aria-hidden="true"></span>
+      {% translate "Only with a university email" %}
+    </p>
+    <h1 class="mt-6 text-4xl font-bold tracking-tight text-balance sm:text-5xl">{% translate "Welcome to CampusQ" %}</h1>
+    <p class="mt-4 text-lg text-pretty text-stone-600 dark:text-stone-400">{% translate "The community for students and professors of Albanian universities." %}</p>
+    <p class="mt-8 inline-block rounded-lg bg-stone-900 px-5 py-2.5 text-sm font-medium text-white dark:bg-white dark:text-stone-900">
+      {% translate "Sign-up opens soon" %}
+    </p>
+  </section>
+
+  <section class="mt-16 grid gap-4 sm:mt-24 sm:grid-cols-3">
+    {% translate "Your university community" as title %}
+    {% translate "Join your university, follow courses and connect with classmates." as body %}
+    {% include "core/_feature_card.html" with icon="🏛️" title=title body=body %}
+
+    {% translate "Questions and answers" as title %}
+    {% translate "Ask about courses and exams, anonymously if you prefer." as body %}
+    {% include "core/_feature_card.html" with icon="💬" title=title body=body %}
+
+    {% translate "Verified professors" as title %}
+    {% translate "Professors are verified by an admin, and their answers carry a badge." as body %}
+    {% include "core/_feature_card.html" with icon="🎓" title=title body=body %}
+  </section>
 {% endblock %}

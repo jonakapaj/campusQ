@@ -1,0 +1,14 @@
+/* Tailwind entry point. Built to static/css/app.css by ./scripts/tailwind.sh.
+   source("../..") scans the whole project for class names, respecting .gitignore
+   (so .venv is skipped). */
+@import "tailwindcss" source("../..");
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  --color-brand-50: #fef2f2;
+  --color-brand-100: #fde3e3;
+  --color-brand-500: #e0282e;
+  --color-brand-600: #c81e24;
+  --color-brand-700: #a5181d;
+}
