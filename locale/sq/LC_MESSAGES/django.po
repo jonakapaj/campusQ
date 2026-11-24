@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 00:53+0100\n"
+"POT-Creation-Date: 2026-11-25 00:56+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -279,6 +279,52 @@ msgid "Professors are verified by an admin, and their answers carry a badge."
 msgstr ""
 "Pedagogët verifikohen nga një administrator dhe përgjigjet e tyre kanë një "
 "shenjë dalluese."
+
+msgid "Social"
+msgstr "Rrjeti"
+
+msgid "user follow"
+msgstr "ndjekje përdoruesi"
+
+msgid "user follows"
+msgstr "ndjekje përdoruesish"
+
+msgid "course follow"
+msgstr "ndjekje lënde"
+
+msgid "course follows"
+msgstr "ndjekje lëndësh"
+
+#, python-format
+msgid "<strong>%(counter)s</strong> follower"
+msgid_plural "<strong>%(counter)s</strong> followers"
+msgstr[0] "<strong>%(counter)s</strong> ndjekës"
+msgstr[1] "<strong>%(counter)s</strong> ndjekës"
+
+msgid "Following"
+msgstr "Po ndjek"
+
+msgid "Follow course"
+msgstr "Ndiq lëndën"
+
+#, python-format
+msgid "<strong>%(count)s</strong> following"
+msgstr "ndjek <strong>%(count)s</strong>"
+
+msgid "Follow"
+msgstr "Ndiq"
+
+msgid "Followers"
+msgstr "Ndjekësit"
+
+msgid "Nobody yet."
+msgstr "Askush ende."
+
+msgid "Courses"
+msgstr "Lëndët"
+
+msgid "No courses yet."
+msgstr "Ende nuk ka lëndë."
 
 msgid "Account inactive"
 msgstr "Llogari joaktive"
@@ -596,9 +642,6 @@ msgstr[1] "%(counter)s anëtarë"
 
 msgid "Faculties and courses"
 msgstr "Fakultetet dhe lëndët"
-
-msgid "No courses yet."
-msgstr "Ende nuk ka lëndë."
 
 msgid "Other courses"
 msgstr "Lëndë të tjera"

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from core.auth import AuthedRequest, verified_required
+from social.services import course_follow_context
 from universities.models import Course, Faculty, University
 
 
@@ -48,4 +49,5 @@ def course_detail(request: AuthedRequest, pk: int) -> HttpResponse:
         pk=pk,
     )
     professors = course.professors.filter(is_active=True).order_by("display_name")
-    return render(request, "universities/course.html", {"course": course, "professors": professors})
+    context = {**course_follow_context(request.user, course), "professors": professors}
+    return render(request, "universities/course.html", context)

@@ -9,7 +9,7 @@
       </p>
       <h1 class="mt-1 text-2xl font-bold tracking-tight">{% if course.code %}<span class="font-mono text-lg muted">{{ course.code }}</span> {% endif %}{{ course.name }}</h1>
       {% if course.description %}<p class="mt-3 text-sm leading-6 whitespace-pre-line">{{ course.description }}</p>{% endif %}
-      {% block course_actions %}{% endblock %}
+      {% include "social/_follow_course.html" %}
     </section>
 
     <section class="mt-6">
