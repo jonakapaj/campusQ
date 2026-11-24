@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ university.name }} · CampusQ{% endblock %}
+{% block content %}
+  <div class="mx-auto max-w-2xl">
+    <section class="card">
+      <h1 class="text-2xl font-bold tracking-tight">{{ university.name }}</h1>
+      <p class="mt-1 text-sm muted">
+        {% if university.short_name %}{{ university.short_name }} · {% endif %}{{ university.city }}
+        · {% blocktranslate count counter=member_count %}{{ counter }} member{% plural %}{{ counter }} members{% endblocktranslate %}
+      </p>
+      {% if not university.is_active %}
+        <p class="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-200 dark:ring-amber-500/20">{% translate "Your university is new to CampusQ. An admin will confirm it soon." %}</p>
+      {% endif %}
+    </section>
+
+    <h2 class="mt-8 text-lg font-semibold">{% translate "Faculties and courses" %}</h2>
+    <div class="mt-3 space-y-3">
+      {% for faculty in faculties %}
+        <section class="card">
+          <h3 class="font-semibold">{{ faculty.name }}</h3>
+          <ul class="mt-2 space-y-1 text-sm">
+            {% for course in faculty.courses.all %}
+              {% include "universities/_course_link.html" %}
+            {% empty %}
+              <li class="muted">{% translate "No courses yet." %}</li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endfor %}
+      {% if unassigned_courses %}
+        <section class="card">
+          <h3 class="font-semibold">{% translate "Other courses" %}</h3>
+          <ul class="mt-2 space-y-1 text-sm">
+            {% for course in unassigned_courses %}{% include "universities/_course_link.html" %}{% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+      {% if not faculties and not unassigned_courses %}
+        <p class="muted text-sm">{% translate "No courses yet. An admin adds them." %}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

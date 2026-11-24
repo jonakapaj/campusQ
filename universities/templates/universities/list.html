@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Universities" %} · CampusQ{% endblock %}
+{% block content %}
+  <div class="mx-auto max-w-2xl">
+    <h1 class="text-2xl font-bold tracking-tight">{% translate "Universities" %}</h1>
+    <ul class="mt-6 space-y-3">
+      {% for university in universities %}
+        <li>
+          <a href="{% url 'university_detail' university.pk %}" class="card flex items-center justify-between gap-4 hover:border-brand-500">
+            <div>
+              <p class="font-semibold">{{ university.name }}{% if university.short_name %} <span class="muted font-normal">({{ university.short_name }})</span>{% endif %}</p>
+              <p class="mt-1 text-sm muted">{{ university.city }}</p>
+            </div>
+            <p class="text-right text-sm muted">
+              {% blocktranslate count counter=university.member_count %}{{ counter }} member{% plural %}{{ counter }} members{% endblocktranslate %}<br>
+              {% blocktranslate count counter=university.course_count %}{{ counter }} course{% plural %}{{ counter }} courses{% endblocktranslate %}
+            </p>
+          </a>
+        </li>
+      {% empty %}
+        <li class="muted">{% translate "No universities yet." %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

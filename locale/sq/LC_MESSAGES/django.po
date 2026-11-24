@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 00:50+0100\n"
+"POT-Creation-Date: 2026-11-25 00:53+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -221,6 +221,12 @@ msgstr "Shqip"
 
 msgid "English"
 msgstr "Anglisht"
+
+msgid "An admin verified this professor."
+msgstr "Një administrator e ka verifikuar këtë pedagog."
+
+msgid "Verified Professor"
+msgstr "Profesor i verifikuar"
 
 msgid "Only with a university email"
 msgstr "Vetëm me email universitar"
@@ -483,6 +489,12 @@ msgstr ""
 "Nuk të erdhi emaili pas disa minutash? Hyr përsëri dhe do të të dërgojmë një "
 "lidhje të re."
 
+msgid "Main"
+msgstr "Kryesore"
+
+msgid "Universities"
+msgstr "Universitetet"
+
 msgid "Language"
 msgstr "Gjuha"
 
@@ -506,9 +518,6 @@ msgid "%d university activated."
 msgid_plural "%d universities activated."
 msgstr[0] "%d universitet u aktivizua."
 msgstr[1] "%d universitete u aktivizuan."
-
-msgid "Universities"
-msgstr "Universitetet"
 
 msgid "Enter a domain such as unitir.edu.al, without @ or http://."
 msgstr "Shkruaj një domen si unitir.edu.al, pa @ ose http://."
@@ -551,3 +560,57 @@ msgstr "domene emaili"
 
 msgid "faculties"
 msgstr "fakultetet"
+
+msgid "code"
+msgstr "kodi"
+
+msgid "e.g. INF201"
+msgstr "p.sh. INF201"
+
+msgid "description"
+msgstr "përshkrimi"
+
+msgid "professors"
+msgstr "pedagogët"
+
+msgid "course"
+msgstr "lënda"
+
+msgid "courses"
+msgstr "lëndët"
+
+msgid "The faculty must belong to the course's university."
+msgstr "Fakulteti duhet t'i përkasë universitetit të lëndës."
+
+msgid "Professors"
+msgstr "Pedagogët"
+
+msgid "No professors listed yet."
+msgstr "Ende nuk ka pedagogë të listuar."
+
+#, python-format
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s anëtar"
+msgstr[1] "%(counter)s anëtarë"
+
+msgid "Faculties and courses"
+msgstr "Fakultetet dhe lëndët"
+
+msgid "No courses yet."
+msgstr "Ende nuk ka lëndë."
+
+msgid "Other courses"
+msgstr "Lëndë të tjera"
+
+msgid "No courses yet. An admin adds them."
+msgstr "Ende nuk ka lëndë. I shton një administrator."
+
+#, python-format
+msgid "%(counter)s course"
+msgid_plural "%(counter)s courses"
+msgstr[0] "%(counter)s lëndë"
+msgstr[1] "%(counter)s lëndë"
+
+msgid "No universities yet."
+msgstr "Ende nuk ka universitete."
