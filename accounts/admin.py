@@ -29,11 +29,14 @@ class UserAdmin(DjangoUserAdmin[User]):  # type: ignore[type-var]
     list_filter = ("role", "professor_status", "is_staff", "is_active", "university__status")
     list_select_related = ("university",)  # avoids one query per row for the column
     search_fields = ("email", "display_name")
-    autocomplete_fields = ("university",)
+    autocomplete_fields = ("university", "faculty")
     readonly_fields = ("last_login", "date_joined")
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Profile"), {"fields": ("display_name", "university")}),
+        (
+            _("Profile"),
+            {"fields": ("display_name", "university", "faculty", "field_of_study", "year", "bio")},
+        ),
         (_("Role"), {"fields": ("role", "professor_status")}),
         (
             _("Permissions"),

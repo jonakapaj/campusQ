@@ -1,5 +1,5 @@
 import re
-from typing import Any
+from typing import Any, ClassVar
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -85,3 +85,26 @@ class UniversityDomain(models.Model):
     def clean(self) -> None:
         # Normalise before the unique check so "UniTir.edu.al" collides with "unitir.edu.al".
         self.domain = normalize_domain(self.domain)
+
+
+class Faculty(models.Model):
+    university = models.ForeignKey(
+        University,
+        on_delete=models.CASCADE,
+        related_name="faculties",
+        verbose_name=_("university"),
+    )
+    name = models.CharField(_("name"), max_length=200)
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = _("faculty")
+        verbose_name_plural = _("faculties")
+        constraints: ClassVar = [
+            models.UniqueConstraint(
+                fields=("university", "name"), name="faculty_name_unique_per_university"
+            ),
+        ]
+
+    def __str__(self) -> str:
+        return self.name

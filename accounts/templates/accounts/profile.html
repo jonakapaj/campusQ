@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ person.display_name }} · CampusQ{% endblock %}
+{% block content %}
+  <div class="mx-auto max-w-2xl">
+    <section class="card">
+      <div class="flex items-start gap-4">
+        {% include "core/_avatar.html" with person=person size="size-16 text-xl" %}
+        <div class="min-w-0 flex-1">
+          <h1 class="text-2xl font-bold tracking-tight">{{ person.display_name }}</h1>
+          <p class="mt-1 text-sm muted">
+            {% if person.university %}{{ person.university.name }}{% endif %}{% if person.faculty %} · {{ person.faculty.name }}{% endif %}
+          </p>
+          {% if person.field_of_study or person.year %}
+            <p class="mt-1 text-sm muted">
+              {{ person.field_of_study }}{% if person.field_of_study and person.year %} · {% endif %}{% if person.year %}{% blocktranslate with year=person.year %}Year {{ year }}{% endblocktranslate %}{% endif %}
+            </p>
+          {% endif %}
+        </div>
+        {% if person == user %}
+          <a href="{% url 'profile_edit' %}" class="btn-secondary">{% translate "Edit profile" %}</a>
+        {% endif %}
+      </div>
+      {% if person.bio %}
+        <p class="mt-5 text-sm leading-6 whitespace-pre-line">{{ person.bio }}</p>
+      {% endif %}
+    </section>
+  </div>
+{% endblock %}

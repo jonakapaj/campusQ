@@ -1,12 +1,16 @@
 from typing import Any, ClassVar
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from universities.models import University
+from universities.models import Faculty, University
+
+# Medicine has 6 years; bachelor 3, master 2.
+MAX_STUDY_YEAR = 6
 
 
 class UserManager(BaseUserManager["User"]):
@@ -65,6 +69,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_name="members",
         verbose_name=_("university"),
     )
+    # Profile. Faculty must belong to the user's university (enforced in ProfileForm).
+    faculty = models.ForeignKey(
+        Faculty,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="members",
+        verbose_name=_("faculty"),
+    )
+    field_of_study = models.CharField(_("field of study"), max_length=100, blank=True)
+    year = models.PositiveSmallIntegerField(
+        _("year of study"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1), MaxValueValidator(MAX_STUDY_YEAR)],
+    )
+    bio = models.TextField(_("bio"), max_length=500, blank=True)
+
     is_active = models.BooleanField(_("active"), default=True)
     is_staff = models.BooleanField(
         _("staff status"),
@@ -88,6 +110,10 @@ class User(AbstractBaseUser, PermissionsMixin):
                 condition=~Q(professor_status="VERIFIED") | Q(role="PROFESSOR"),
                 name="verified_professor_has_professor_role",
             ),
+            models.CheckConstraint(
+                condition=Q(year__isnull=True) | Q(year__gte=1, year__lte=MAX_STUDY_YEAR),
+                name="user_year_in_range",
+            ),
         ]
 
     def __str__(self) -> str:
@@ -106,6 +132,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self) -> str:
         return self.get_full_name()
+
+    @property
+    def initials(self) -> str:
+        """Up to two letters for the avatar circle, e.g. "Ëngjëll Çela" -> "ËÇ"."""
+        words = self.get_full_name().split()
+        return "".join(w[0] for w in words[:2]).upper() or "?"
+
+    @property
+    def is_platform_admin(self) -> bool:
+        """Runs moderation and professor review. Never derived from client input."""
+        return self.is_active and (self.is_superuser or self.role == self.Role.ADMIN)
 
     @property
     def is_verified_professor(self) -> bool:
