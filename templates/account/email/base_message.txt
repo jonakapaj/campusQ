@@ -1,0 +1,6 @@
+{% load i18n %}{% autoescape off %}{% translate "Hello from CampusQ!" %}
+
+{% block content %}{% endblock content %}
+
+{% translate "The CampusQ team" %}
+{% endautoescape %}

@@ -1,0 +1,16 @@
+{% extends "account/_card.html" %}
+{% load i18n %}
+{% block page_title %}{% translate "Sign up" %}{% endblock %}
+{% block heading %}{% translate "Create your account" %}{% endblock %}
+{% block card %}
+  <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">{% translate "CampusQ is only for students and professors of Albanian universities. Sign up with your university email." %}</p>
+  <form method="post" action="{% url 'account_signup' %}" class="form mt-6 space-y-5" novalidate>
+    {% csrf_token %}
+    {% include "account/_fields.html" with form=form %}
+    {{ redirect_field }}
+    <button type="submit" class="btn-primary w-full">{% translate "Sign up" %}</button>
+  </form>
+{% endblock %}
+{% block below %}
+  {% translate "Already have an account?" %} <a href="{{ login_url }}" class="link">{% translate "Sign in" %}</a>
+{% endblock %}

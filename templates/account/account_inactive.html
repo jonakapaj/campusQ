@@ -1,0 +1,7 @@
+{% extends "account/_card.html" %}
+{% load i18n %}
+{% block page_title %}{% translate "Account inactive" %}{% endblock %}
+{% block heading %}{% translate "Account inactive" %}{% endblock %}
+{% block card %}
+  <p class="mt-4 text-sm text-stone-600 dark:text-stone-400">{% translate "This account is inactive." %}</p>
+{% endblock %}

@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktranslate %}We sent a confirmation email to {{ email }}.{% endblocktranslate %}

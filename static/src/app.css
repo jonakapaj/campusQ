@@ -12,3 +12,29 @@
   --color-brand-600: #c81e24;
   --color-brand-700: #a5181d;
 }
+
+/* Shared controls. Forms render plain Django widgets inside .form, so input styling
+   lives here rather than in Python widget attrs. */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800;
+  }
+  .link {
+    @apply font-medium text-brand-600 hover:text-brand-700 hover:underline dark:text-brand-100;
+  }
+  .form input:where([type="email"], [type="password"], [type="text"]) {
+    @apply block w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-stone-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-stone-700 dark:bg-stone-950;
+  }
+  .form input[aria-invalid="true"] {
+    @apply border-red-500;
+  }
+  .form input[type="checkbox"] {
+    @apply size-4 rounded border-stone-300 accent-brand-600;
+  }
+  .form .helptext ul {
+    @apply mt-1 list-disc pl-4;
+  }
+}

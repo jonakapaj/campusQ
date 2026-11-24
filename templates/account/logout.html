@@ -1,0 +1,12 @@
+{% extends "account/_card.html" %}
+{% load i18n %}
+{% block page_title %}{% translate "Sign out" %}{% endblock %}
+{% block heading %}{% translate "Sign out" %}{% endblock %}
+{% block card %}
+  <p class="mt-4 text-sm text-stone-600 dark:text-stone-400">{% translate "Are you sure you want to sign out?" %}</p>
+  <form method="post" action="{% url 'account_logout' %}" class="mt-6">
+    {% csrf_token %}
+    {{ redirect_field }}
+    <button type="submit" class="btn-primary w-full">{% translate "Sign out" %}</button>
+  </form>
+{% endblock %}

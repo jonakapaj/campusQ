@@ -1,0 +1,7 @@
+{% extends "account/email/base_message.txt" %}
+{% load i18n %}
+{% block content %}{% autoescape off %}{% blocktranslate %}Someone tried to reset the password for {{ email }}, but there is no CampusQ account with this address.{% endblocktranslate %}
+
+{% translate "If it wasn't you, you can ignore this email. If you want an account, sign up here:" %}
+
+{{ signup_url }}{% endautoescape %}{% endblock content %}

@@ -2,9 +2,13 @@
 
 from pathlib import Path
 
+import django_stubs_ext
 from django.utils.translation import gettext_lazy as _
 
 from config.env import env_bool, env_list, env_str, load_dotenv, parse_database_url
+
+# Lets django-stubs' generic classes (ModelAdmin[Model], ...) be subscripted at runtime.
+django_stubs_ext.monkeypatch()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
@@ -23,7 +27,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "allauth",
+    "allauth.account",
     "core",
+    "universities",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -33,6 +41,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -64,6 +73,37 @@ DATABASES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # --- Auth -------------------------------------------------------------------
+
+AUTH_USER_MODEL = "accounts.User"
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",  # Django admin login
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+LOGIN_URL = "account_login"
+LOGIN_REDIRECT_URL = "home"
+
+# django-allauth: email is the only login. The .edu.al policy lives in AccountAdapter.
+ACCOUNT_ADAPTER = "accounts.adapter.AccountAdapter"
+ACCOUNT_FORMS = {
+    "signup": "accounts.forms.SignupForm",
+    "login": "accounts.forms.LoginForm",
+    "reset_password": "accounts.forms.ResetPasswordForm",
+    "reset_password_from_key": "accounts.forms.ResetPasswordKeyForm",
+    "change_password": "accounts.forms.ChangePasswordForm",
+}
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_DISPLAY = "accounts.models.user_display"
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_MAX_EMAIL_ADDRESSES = 1
+# Unverified users cannot sign in at all; signing in again re-sends the link.
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False  # a POST, so mail scanners opening links confirm nothing
+ACCOUNT_LOGOUT_ON_GET = False
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[CampusQ] "
+ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 21:01+0100\n"
+"POT-Creation-Date: 2026-11-24 21:27+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -12,6 +12,154 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This account is currently inactive."
+msgstr "Kjo llogari është aktualisht joaktive."
+
+msgid "The email address and/or password are not correct."
+msgstr "Adresa e emailit dhe/ose fjalëkalimi nuk janë të sakta."
+
+msgid "A user is already registered with this email address."
+msgstr "Një përdorues është regjistruar tashmë me këtë adresë emaili."
+
+msgid "Please type your current password."
+msgstr "Shkruaj fjalëkalimin aktual."
+
+msgid "Incorrect password."
+msgstr "Fjalëkalim i pasaktë."
+
+msgid "Invalid or expired key."
+msgstr "Çelës i pavlefshëm ose i skaduar."
+
+msgid "The password reset link was invalid."
+msgstr "Lidhja për rivendosjen e fjalëkalimit nuk ishte e vlefshme."
+
+#, python-format
+msgid "You cannot add more than %d email addresses."
+msgstr "Nuk mund të shtosh më shumë se %d adresa emaili."
+
+msgid "Too many requests. Please wait a little and try again."
+msgstr "Shumë kërkesa. Prit pak dhe provo përsëri."
+
+msgid "The new value must be different from the current one."
+msgstr "Vlera e re duhet të jetë e ndryshme nga ajo aktuale."
+
+msgid "Too many failed sign-in attempts. Try again later."
+msgstr "Shumë përpjekje të dështuara për të hyrë. Provo përsëri më vonë."
+
+msgid "The email address is not assigned to any user account."
+msgstr "Kjo adresë emaili nuk i përket asnjë llogarie."
+
+msgid "Your email address must be verified."
+msgstr "Adresa jote e emailit duhet të verifikohet."
+
+msgid "Use your university email address (ending in .edu.al)."
+msgstr "Përdor adresën e emailit të universitetit (që mbaron me .edu.al)."
+
+msgid "Profile"
+msgstr "Profili"
+
+msgid "Role"
+msgstr "Roli"
+
+msgid "Permissions"
+msgstr "Lejet"
+
+msgid "Important dates"
+msgstr "Data të rëndësishme"
+
+msgid "Accounts"
+msgstr "Llogaritë"
+
+msgid "Your name"
+msgstr "Emri yt"
+
+msgid "How other people on CampusQ will see you."
+msgstr "Si do të të shohin të tjerët në CampusQ."
+
+msgid "University email"
+msgstr "Emaili universitar"
+
+msgid "The address your university gave you, ending in .edu.al."
+msgstr "Adresa që të ka dhënë universiteti, që mbaron me .edu.al."
+
+msgid "Password"
+msgstr "Fjalëkalimi"
+
+msgid "Password (again)"
+msgstr "Fjalëkalimi (përsëri)"
+
+msgid "Please enter your name."
+msgstr "Shkruaj emrin tënd."
+
+msgid "Email"
+msgstr "Emaili"
+
+msgid "Keep me signed in"
+msgstr "Më mbaj të identifikuar"
+
+msgid "New password"
+msgstr "Fjalëkalimi i ri"
+
+msgid "New password (again)"
+msgstr "Fjalëkalimi i ri (përsëri)"
+
+msgid "Current password"
+msgstr "Fjalëkalimi aktual"
+
+msgid "Student"
+msgstr "Student"
+
+msgid "Professor"
+msgstr "Pedagog"
+
+msgid "Admin"
+msgstr "Administrator"
+
+msgid "None"
+msgstr "Asnjë"
+
+msgid "Pending"
+msgstr "Në pritje"
+
+msgid "Verified"
+msgstr "I verifikuar"
+
+msgid "Rejected"
+msgstr "I refuzuar"
+
+msgid "email address"
+msgstr "adresa e emailit"
+
+msgid "display name"
+msgstr "emri që shfaqet"
+
+msgid "role"
+msgstr "roli"
+
+msgid "professor status"
+msgstr "statusi i pedagogut"
+
+msgid "university"
+msgstr "universiteti"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid "staff status"
+msgstr "statusi i stafit"
+
+msgid "Can log in to this admin site."
+msgstr "Mund të hyjë në këtë faqe administrimi."
+
+msgid "date joined"
+msgstr "data e regjistrimit"
+
+msgid "user"
+msgstr "përdorues"
+
+msgid "users"
+msgstr "përdoruesit"
 
 msgid "Albanian"
 msgstr "Shqip"
@@ -28,14 +176,34 @@ msgstr "Mirë se vini në CampusQ"
 msgid "The community for students and professors of Albanian universities."
 msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
 
-msgid "Sign-up opens soon"
-msgstr "Regjistrimi hapet së shpejti"
+#, python-format
+msgid "Hello, %(name)s!"
+msgstr "Përshëndetje, %(name)s!"
+
+#, python-format
+msgid "You're a member of %(university)s."
+msgstr "Je anëtar i %(university)s."
+
+msgid "Your university is new to CampusQ. An admin will confirm it soon."
+msgstr ""
+"Universiteti yt është i ri në CampusQ. Një administrator do ta konfirmojë së "
+"shpejti."
+
+msgid "Feeds, courses and questions are coming next."
+msgstr "Së shpejti: postimet, lëndët dhe pyetjet."
+
+msgid "Create an account"
+msgstr "Krijo një llogari"
+
+msgid "Sign in"
+msgstr "Hyr"
 
 msgid "Your university community"
 msgstr "Komuniteti i universitetit tënd"
 
 msgid "Join your university, follow courses and connect with classmates."
-msgstr "Bashkohu me universitetin tënd, ndiq lëndët dhe lidhu me shokët e kursit."
+msgstr ""
+"Bashkohu me universitetin tënd, ndiq lëndët dhe lidhu me shokët e kursit."
 
 msgid "Questions and answers"
 msgstr "Pyetje dhe përgjigje"
@@ -47,10 +215,279 @@ msgid "Verified professors"
 msgstr "Pedagogë të verifikuar"
 
 msgid "Professors are verified by an admin, and their answers carry a badge."
-msgstr "Pedagogët verifikohen nga një administrator dhe përgjigjet e tyre kanë një shenjë dalluese."
+msgstr ""
+"Pedagogët verifikohen nga një administrator dhe përgjigjet e tyre kanë një "
+"shenjë dalluese."
+
+msgid "Account inactive"
+msgstr "Llogari joaktive"
+
+msgid "This account is inactive."
+msgstr "Kjo llogari është joaktive."
+
+#, python-format
+msgid ""
+"Someone tried to sign up for CampusQ with %(email)s, but an account with "
+"this address already exists."
+msgstr ""
+"Dikush u përpoq të regjistrohej në CampusQ me %(email)s, por një llogari me "
+"këtë adresë ekziston tashmë."
+
+msgid "If you forgot your password, you can reset it here:"
+msgstr "Nëse e ke harruar fjalëkalimin, mund ta rivendosësh këtu:"
+
+msgid "You already have an account"
+msgstr "Ke tashmë një llogari"
+
+msgid "Hello from CampusQ!"
+msgstr "Përshëndetje nga CampusQ!"
+
+msgid "The CampusQ team"
+msgstr "Ekipi i CampusQ"
+
+msgid "Someone, hopefully you, used this address to sign up for CampusQ."
+msgstr ""
+"Dikush, shpresojmë ti, e përdori këtë adresë për t'u regjistruar në CampusQ."
+
+#, python-format
+msgid "To confirm it, open this link: %(activate_url)s"
+msgstr "Për ta konfirmuar, hap këtë lidhje: %(activate_url)s"
+
+msgid "If it wasn't you, you can ignore this email."
+msgstr "Nëse nuk ishe ti, mund ta injorosh këtë email."
+
+msgid "Confirm your email address"
+msgstr "Konfirmo adresën e emailit"
+
+msgid ""
+"Someone, hopefully you, asked to reset the password of your CampusQ account. "
+"To choose a new password, open this link:"
+msgstr ""
+"Dikush, shpresojmë ti, kërkoi të rivendosë fjalëkalimin e llogarisë tënde në "
+"CampusQ. Për të zgjedhur një fjalëkalim të ri, hap këtë lidhje:"
+
+msgid ""
+"If it wasn't you, you can ignore this email: your password stays the same."
+msgstr ""
+"Nëse nuk ishe ti, mund ta injorosh këtë email: fjalëkalimi yt mbetet i "
+"njëjtë."
+
+msgid "Reset your password"
+msgstr "Rivendos fjalëkalimin"
+
+#, python-format
+msgid ""
+"Someone tried to reset the password for %(email)s, but there is no CampusQ "
+"account with this address."
+msgstr ""
+"Dikush u përpoq të rivendoste fjalëkalimin për %(email)s, por nuk ka asnjë "
+"llogari CampusQ me këtë adresë."
+
+msgid ""
+"If it wasn't you, you can ignore this email. If you want an account, sign up "
+"here:"
+msgstr ""
+"Nëse nuk ishe ti, mund ta injorosh këtë email. Nëse dëshiron një llogari, "
+"regjistrohu këtu:"
+
+msgid "Password reset request"
+msgstr "Kërkesë për rivendosjen e fjalëkalimit"
+
+msgid "Confirm your email"
+msgstr "Konfirmo emailin"
+
+#, python-format
+msgid "Confirm that <strong>%(email)s</strong> is your email address."
+msgstr "Konfirmo që <strong>%(email)s</strong> është adresa jote e emailit."
+
+msgid "Confirm"
+msgstr "Konfirmo"
+
+msgid "This email address is already confirmed by a different account."
+msgstr "Kjo adresë emaili është konfirmuar tashmë nga një llogari tjetër."
+
+msgid ""
+"This confirmation link has expired or is not valid. Sign in again and we'll "
+"send you a new one."
+msgstr ""
+"Kjo lidhje konfirmimi ka skaduar ose nuk është e vlefshme. Hyr përsëri dhe "
+"do të të dërgojmë një të re."
+
+msgid "Sign in to CampusQ"
+msgstr "Hyr në CampusQ"
+
+msgid "Forgot your password?"
+msgstr "Ke harruar fjalëkalimin?"
+
+msgid "New to CampusQ?"
+msgstr "I ri në CampusQ?"
+
+msgid "Sign out"
+msgstr "Dil"
+
+msgid "Are you sure you want to sign out?"
+msgstr "Je i sigurt që dëshiron të dalësh?"
+
+#, python-format
+msgid "%(email)s is already confirmed by a different account."
+msgstr "%(email)s është konfirmuar tashmë nga një llogari tjetër."
+
+#, python-format
+msgid "We sent a confirmation email to %(email)s."
+msgstr "Të dërguam një email konfirmimi në %(email)s."
+
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "E konfirmove %(email)s."
+
+#, python-format
+msgid "Signed in as %(name)s."
+msgstr "Hyre si %(name)s."
+
+msgid "You have signed out."
+msgstr "Dole nga llogaria."
+
+msgid "Password changed."
+msgstr "Fjalëkalimi u ndryshua."
+
+msgid "Password set."
+msgstr "Fjalëkalimi u vendos."
+
+msgid "Change password"
+msgstr "Ndrysho fjalëkalimin"
+
+msgid "Enter your email and we'll send you a link to choose a new password."
+msgstr ""
+"Shkruaj emailin dhe do të të dërgojmë një lidhje për të zgjedhur një "
+"fjalëkalim të ri."
+
+msgid "Send reset link"
+msgstr "Dërgo lidhjen"
+
+msgid "Back to sign in"
+msgstr "Kthehu te hyrja"
+
+msgid "Check your email"
+msgstr "Kontrollo emailin"
+
+msgid ""
+"If that address has an account, we sent it a link to reset the password. If "
+"you can't find it, check your spam folder."
+msgstr ""
+"Nëse kjo adresë ka një llogari, i dërguam një lidhje për të rivendosur "
+"fjalëkalimin. Nëse nuk e gjen, kontrollo dosjen spam."
+
+msgid "Choose a new password"
+msgstr "Zgjidh një fjalëkalim të ri"
+
+msgid "Link not valid"
+msgstr "Lidhje e pavlefshme"
+
+msgid ""
+"This password reset link is not valid, possibly because it was already used."
+msgstr ""
+"Kjo lidhje për rivendosjen e fjalëkalimit nuk është e vlefshme, ndoshta "
+"sepse është përdorur tashmë."
+
+msgid "Request a new link"
+msgstr "Kërko një lidhje të re"
+
+msgid "Password changed"
+msgstr "Fjalëkalimi u ndryshua"
+
+msgid "Your password has been changed. You can sign in with it now."
+msgstr "Fjalëkalimi yt u ndryshua. Tani mund të hysh me të."
+
+msgid "Sign up"
+msgstr "Regjistrohu"
+
+msgid "Create your account"
+msgstr "Krijo llogarinë tënde"
+
+msgid ""
+"CampusQ is only for students and professors of Albanian universities. Sign "
+"up with your university email."
+msgstr ""
+"CampusQ është vetëm për studentët dhe pedagogët e universiteteve shqiptare. "
+"Regjistrohu me emailin universitar."
+
+msgid "Already have an account?"
+msgstr "Ke tashmë një llogari?"
+
+msgid ""
+"We sent you a link to confirm your university email. Open it to finish "
+"signing up. If you can't find it, check your spam folder."
+msgstr ""
+"Të dërguam një lidhje për të konfirmuar emailin universitar. Hape për të "
+"përfunduar regjistrimin. Nëse nuk e gjen, kontrollo dosjen spam."
+
+msgid "No email after a few minutes? Sign in again and we'll send a new link."
+msgstr ""
+"Nuk të erdhi emaili pas disa minutash? Hyr përsëri dhe do të të dërgojmë një "
+"lidhje të re."
 
 msgid "Language"
 msgstr "Gjuha"
 
 msgid "Change"
 msgstr "Ndrysho"
+
+msgid "domains"
+msgstr "domenet"
+
+msgid "members"
+msgstr "anëtarët"
+
+msgid "possible parent university"
+msgstr "universiteti i mundshëm prind"
+
+msgid "Mark selected universities as active"
+msgstr "Shëno universitetet e zgjedhura si aktive"
+
+#, python-format
+msgid "%d university activated."
+msgid_plural "%d universities activated."
+msgstr[0] "%d universitet u aktivizua."
+msgstr[1] "%d universitete u aktivizuan."
+
+msgid "Universities"
+msgstr "Universitetet"
+
+msgid "Enter a domain such as unitir.edu.al, without @ or http://."
+msgstr "Shkruaj një domen si unitir.edu.al, pa @ ose http://."
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Pending review"
+msgstr "Në pritje të shqyrtimit"
+
+msgid "name"
+msgstr "emri"
+
+msgid "short name"
+msgstr "emri i shkurtër"
+
+msgid "For example UT, UPT or UAMD."
+msgstr "Për shembull UT, UPT ose UAMD."
+
+msgid "city"
+msgstr "qyteti"
+
+msgid "status"
+msgstr "statusi"
+
+msgid "created at"
+msgstr "krijuar më"
+
+msgid "universities"
+msgstr "universitetet"
+
+msgid "domain"
+msgstr "domeni"
+
+msgid "email domain"
+msgstr "domen emaili"
+
+msgid "email domains"
+msgstr "domene emaili"

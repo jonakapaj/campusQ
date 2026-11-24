@@ -1,0 +1,2 @@
+{% load i18n %}
+{% translate "Your email address must be verified." %}

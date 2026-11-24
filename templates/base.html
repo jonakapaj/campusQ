@@ -17,6 +17,7 @@
         <span class="text-lg">CampusQ</span>
       </a>
 
+      <div class="flex items-center gap-3">
       <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.get_full_path }}">
@@ -33,10 +34,29 @@
           <button type="submit" class="rounded-lg border border-stone-300 px-3 py-1.5 text-sm">{% translate "Change" %}</button>
         </noscript>
       </form>
+
+      {% if user.is_authenticated %}
+        <span class="hidden text-sm text-stone-600 sm:inline dark:text-stone-400">{{ user.display_name|default:user.email }}</span>
+        <form action="{% url 'account_logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn-secondary">{% translate "Sign out" %}</button>
+        </form>
+      {% else %}
+        <a href="{% url 'account_login' %}" class="text-sm font-medium hover:text-brand-600">{% translate "Sign in" %}</a>
+        <a href="{% url 'account_signup' %}" class="btn-primary">{% translate "Sign up" %}</a>
+      {% endif %}
+      </div>
     </div>
   </header>
 
   <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-12 sm:py-20">
+    {% if messages %}
+      <ul class="mx-auto mb-8 max-w-md space-y-2" role="status">
+        {% for message in messages %}
+          <li class="rounded-lg px-4 py-3 text-sm ring-1 {% if message.level_tag == 'error' %}bg-red-50 text-red-800 ring-red-200 dark:bg-red-500/10 dark:text-red-200 dark:ring-red-500/20{% else %}bg-emerald-50 text-emerald-800 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-200 dark:ring-emerald-500/20{% endif %}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
 

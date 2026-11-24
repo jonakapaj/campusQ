@@ -1,0 +1,23 @@
+{% extends "account/_card.html" %}
+{% load i18n %}
+{% block page_title %}{% translate "Confirm your email" %}{% endblock %}
+{% block heading %}{% translate "Confirm your email" %}{% endblock %}
+{% block card %}
+  {% if confirmation %}
+    {% if can_confirm %}
+      {% with email=confirmation.email_address.email %}
+        <p class="mt-4 text-sm leading-6 text-stone-600 dark:text-stone-400">{% blocktranslate %}Confirm that <strong>{{ email }}</strong> is your email address.{% endblocktranslate %}</p>
+      {% endwith %}
+      <form method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="mt-6">
+        {% csrf_token %}
+        {{ redirect_field }}
+        <button type="submit" class="btn-primary w-full">{% translate "Confirm" %}</button>
+      </form>
+    {% else %}
+      <p class="mt-4 text-sm leading-6 text-stone-600 dark:text-stone-400">{% translate "This email address is already confirmed by a different account." %}</p>
+    {% endif %}
+  {% else %}
+    <p class="mt-4 text-sm leading-6 text-stone-600 dark:text-stone-400">{% translate "This confirmation link has expired or is not valid. Sign in again and we'll send you a new one." %}</p>
+    <a href="{% url 'account_login' %}" class="btn-primary mt-6 w-full">{% translate "Sign in" %}</a>
+  {% endif %}
+{% endblock %}

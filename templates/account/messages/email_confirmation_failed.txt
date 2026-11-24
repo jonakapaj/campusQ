@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktranslate %}{{ email }} is already confirmed by a different account.{% endblocktranslate %}

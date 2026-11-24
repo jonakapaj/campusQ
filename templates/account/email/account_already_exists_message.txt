@@ -1,0 +1,7 @@
+{% extends "account/email/base_message.txt" %}
+{% load i18n %}
+{% block content %}{% autoescape off %}{% blocktranslate %}Someone tried to sign up for CampusQ with {{ email }}, but an account with this address already exists.{% endblocktranslate %}
+
+{% translate "If you forgot your password, you can reset it here:" %}
+
+{{ password_reset_url }}{% endautoescape %}{% endblock content %}
