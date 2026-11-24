@@ -1,0 +1,32 @@
+# Albanian translations for CampusQ.
+msgid ""
+msgstr ""
+"Project-Id-Version: CampusQ\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-24 20:29+0100\n"
+"PO-Revision-Date: 2026-11-24 20:30+0100\n"
+"Last-Translator: CampusQ maintainers\n"
+"Language-Team: Albanian\n"
+"Language: sq\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Albanian"
+msgstr "Shqip"
+
+msgid "English"
+msgstr "Anglisht"
+
+msgid "Welcome to CampusQ"
+msgstr "Mirë se vini në CampusQ"
+
+msgid "The community for students and professors of Albanian universities."
+msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
+
+msgid "Language"
+msgstr "Gjuha"
+
+msgid "Change"
+msgstr "Ndrysho"
