@@ -7,9 +7,10 @@
   <meta name="robots" content="noindex, nofollow">
   <title>{% block title %}CampusQ{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'vendor/htmx-2.0.4.min.js' %}" defer></script>
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>
-<body class="flex min-h-full flex-col bg-stone-50 font-sans text-stone-900 antialiased dark:bg-stone-950 dark:text-stone-100">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="flex min-h-full flex-col bg-stone-50 font-sans text-stone-900 antialiased dark:bg-stone-950 dark:text-stone-100">
   <header class="sticky top-0 z-10 border-b border-stone-200 bg-white/80 backdrop-blur dark:border-stone-800 dark:bg-stone-900/80">
     <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
       <a href="{% url 'home' %}" class="flex items-center gap-2 font-semibold tracking-tight">

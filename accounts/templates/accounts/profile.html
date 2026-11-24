@@ -22,6 +22,7 @@
           <a href="{% url 'profile_edit' %}" class="btn-secondary">{% translate "Edit profile" %}</a>
         {% endif %}
       </div>
+      <div class="mt-4">{% include "social/_follow_user.html" %}</div>
       {% if person.bio %}
         <p class="mt-5 text-sm leading-6 whitespace-pre-line">{{ person.bio }}</p>
       {% endif %}

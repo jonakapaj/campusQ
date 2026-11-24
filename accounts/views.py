@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 from accounts.models import User
 from accounts.profile_forms import ProfileForm
 from core.auth import AuthedRequest, verified_required
+from social.services import user_follow_context
 
 
 @verified_required
@@ -14,7 +15,8 @@ def profile(request: AuthedRequest, pk: int) -> HttpResponse:
     person = get_object_or_404(
         User.objects.filter(is_active=True).select_related("university", "faculty"), pk=pk
     )
-    return render(request, "accounts/profile.html", {"person": person})
+    context = user_follow_context(request.user, person)
+    return render(request, "accounts/profile.html", context)
 
 
 @verified_required

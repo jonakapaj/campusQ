@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ person.display_name }} · CampusQ{% endblock %}
+{% block content %}
+  <div class="mx-auto max-w-2xl">
+    <p class="text-sm"><a href="{% url 'profile' person.pk %}" class="link">← {{ person.display_name }}</a></p>
+    <h1 class="mt-2 text-2xl font-bold tracking-tight">{% if kind == "followers" %}{% translate "Followers" %}{% else %}{% translate "Following" %}{% endif %}</h1>
+    <ul class="mt-6 space-y-2">
+      {% for p in people %}
+        <li class="card flex items-center gap-3 py-3">
+          {% include "core/_avatar.html" with person=p size="size-9 text-sm" %}
+          <div class="min-w-0">
+            <a href="{% url 'profile' p.pk %}" class="font-medium hover:underline">{{ p.display_name }}</a>
+            {% include "core/_professor_badge.html" with person=p %}
+            {% if p.university %}<p class="text-xs muted">{{ p.university.name }}</p>{% endif %}
+          </div>
+        </li>
+      {% empty %}
+        <li class="text-sm muted">{% translate "Nobody yet." %}</li>
+      {% endfor %}
+    </ul>
+    {% if kind == "following" %}
+      <h2 class="mt-8 text-lg font-semibold">{% translate "Courses" %}</h2>
+      <ul class="mt-3 space-y-1 text-sm">
+        {% for course in courses %}
+          <li><a href="{% url 'course_detail' course.pk %}" class="link">{{ course.name }}</a> <span class="muted">· {{ course.university.name }}</span></li>
+        {% empty %}
+          <li class="muted">{% translate "No courses yet." %}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endblock %}

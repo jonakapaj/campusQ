@@ -1,0 +1,14 @@
+{% load i18n %}
+<div id="follow-course-{{ course.pk }}" class="mt-4 flex items-center gap-4 text-sm">
+  <span>{% blocktranslate count counter=follower_count %}<strong>{{ counter }}</strong> follower{% plural %}<strong>{{ counter }}</strong> followers{% endblocktranslate %}</span>
+  <form method="post" action="{% url 'follow_course' course.pk %}" hx-post="{% url 'follow_course' course.pk %}" hx-target="#follow-course-{{ course.pk }}" hx-swap="outerHTML">
+    {% csrf_token %}
+    {% if is_following %}
+      <input type="hidden" name="follow" value="0">
+      <button type="submit" class="btn-secondary">{% translate "Following" %}</button>
+    {% else %}
+      <input type="hidden" name="follow" value="1">
+      <button type="submit" class="btn-primary py-1.5">{% translate "Follow course" %}</button>
+    {% endif %}
+  </form>
+</div>
