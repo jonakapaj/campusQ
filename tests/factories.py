@@ -4,7 +4,7 @@ import factory
 from allauth.account.models import EmailAddress
 
 from accounts.models import User
-from universities.models import University, UniversityDomain
+from universities.models import Faculty, University, UniversityDomain
 
 
 class UniversityFactory(factory.django.DjangoModelFactory[University]):
@@ -23,6 +23,14 @@ class UniversityDomainFactory(factory.django.DjangoModelFactory[UniversityDomain
 
     domain = factory.Sequence(lambda n: f"uni{n}.edu.al")
     university = factory.SubFactory(UniversityFactory)
+
+
+class FacultyFactory(factory.django.DjangoModelFactory[Faculty]):
+    class Meta:
+        model = Faculty
+
+    university = factory.SubFactory(UniversityFactory)
+    name = factory.Sequence(lambda n: f"Fakulteti {n}")
 
 
 class UserFactory(factory.django.DjangoModelFactory[User]):

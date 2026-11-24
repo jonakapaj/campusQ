@@ -36,7 +36,10 @@
       </form>
 
       {% if user.is_authenticated %}
-        <span class="hidden text-sm text-stone-600 sm:inline dark:text-stone-400">{{ user.display_name|default:user.email }}</span>
+        <a href="{% url 'profile' user.pk %}" class="hidden items-center gap-2 text-sm font-medium hover:text-brand-600 sm:flex">
+          {% include "core/_avatar.html" with person=user size="size-8 text-xs" %}
+          <span>{{ user.display_name|default:user.email }}</span>
+        </a>
         <form action="{% url 'account_logout' %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn-secondary">{% translate "Sign out" %}</button>

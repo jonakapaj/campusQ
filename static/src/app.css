@@ -22,10 +22,21 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800;
   }
+  .card {
+    @apply rounded-2xl border border-stone-200 bg-white p-5 shadow-xs sm:p-6 dark:border-stone-800 dark:bg-stone-900;
+  }
+  .muted {
+    @apply text-stone-600 dark:text-stone-400;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ring-1;
+  }
   .link {
     @apply font-medium text-brand-600 hover:text-brand-700 hover:underline dark:text-brand-100;
   }
-  .form input:where([type="email"], [type="password"], [type="text"]) {
+  .form input:where([type="email"], [type="password"], [type="text"], [type="number"], [type="search"], [type="url"], [type="datetime-local"]),
+  .form select,
+  .form textarea {
     @apply block w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-stone-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-stone-700 dark:bg-stone-950;
   }
   .form input[aria-invalid="true"] {
