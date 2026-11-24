@@ -47,6 +47,16 @@ def env_bool(name: str, default: bool = False) -> bool:
     raise ImproperlyConfigured(f"{name} must be a boolean, got {raw!r}")
 
 
+def env_int(name: str, default: int) -> int:
+    raw = os.environ.get(name)
+    if raw is None or not raw.strip():
+        return default
+    try:
+        return int(raw)
+    except ValueError:
+        raise ImproperlyConfigured(f"{name} must be an integer, got {raw!r}") from None
+
+
 def env_list(name: str, default: str = "") -> list[str]:
     return [item.strip() for item in env_str(name, default).split(",") if item.strip()]
 

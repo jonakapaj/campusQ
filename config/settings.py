@@ -5,7 +5,7 @@ from pathlib import Path
 import django_stubs_ext
 from django.utils.translation import gettext_lazy as _
 
-from config.env import env_bool, env_list, env_str, load_dotenv, parse_database_url
+from config.env import env_bool, env_int, env_list, env_str, load_dotenv, parse_database_url
 
 # Lets django-stubs' generic classes (ModelAdmin[Model], ...) be subscripted at runtime.
 django_stubs_ext.monkeypatch()
@@ -137,6 +137,14 @@ EMAIL_BACKEND = env_str(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
 DEFAULT_FROM_EMAIL = env_str("DJANGO_DEFAULT_FROM_EMAIL", default="CampusQ <noreply@localhost>")
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# Used only by the SMTP backend (e.g. Brevo: smtp-relay.brevo.com:587, STARTTLS).
+EMAIL_HOST = env_str("DJANGO_EMAIL_HOST", default="localhost")
+EMAIL_PORT = env_int("DJANGO_EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env_str("DJANGO_EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env_str("DJANGO_EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env_bool("DJANGO_EMAIL_USE_TLS", default=True)
+EMAIL_TIMEOUT = 10  # seconds; a slow mail server must not hang the signup request
 
 # --- Security ---------------------------------------------------------------
 # Secure-by-default outside DEBUG; each can be overridden for unusual hosts.
