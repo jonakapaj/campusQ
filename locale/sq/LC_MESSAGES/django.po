@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 21:27+0100\n"
+"POT-Creation-Date: 2026-11-25 00:10+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -24,6 +24,9 @@ msgstr "Një përdorues është regjistruar tashmë me këtë adresë emaili."
 
 msgid "Please type your current password."
 msgstr "Shkruaj fjalëkalimin aktual."
+
+msgid "Incorrect code."
+msgstr "Kodi është i pasaktë."
 
 msgid "Incorrect password."
 msgstr "Fjalëkalim i pasaktë."
@@ -106,6 +109,9 @@ msgstr "Fjalëkalimi i ri (përsëri)"
 
 msgid "Current password"
 msgstr "Fjalëkalimi aktual"
+
+msgid "Confirmation code"
+msgstr "Kodi i konfirmimit"
 
 msgid "Student"
 msgstr "Student"
@@ -225,6 +231,28 @@ msgstr "Llogari joaktive"
 msgid "This account is inactive."
 msgstr "Kjo llogari është joaktive."
 
+msgid "Check your email"
+msgstr "Kontrollo emailin"
+
+#, python-format
+msgid ""
+"We sent a code to <strong>%(email)s</strong>. Enter it below to confirm your "
+"university email. It expires in 15 minutes. If you can't find it, check your "
+"spam folder."
+msgstr ""
+"Të dërguam një kod në <strong>%(email)s</strong>. Shkruaje më poshtë për të "
+"konfirmuar emailin universitar. Skadon pas 15 minutash. Nëse nuk e gjen, "
+"kontrollo dosjen spam."
+
+msgid "Confirm"
+msgstr "Konfirmo"
+
+msgid "Send a new code"
+msgstr "Dërgo një kod të ri"
+
+msgid "Cancel"
+msgstr "Anulo"
+
 #, python-format
 msgid ""
 "Someone tried to sign up for CampusQ with %(email)s, but an account with "
@@ -245,13 +273,19 @@ msgstr "Përshëndetje nga CampusQ!"
 msgid "The CampusQ team"
 msgstr "Ekipi i CampusQ"
 
-msgid "Someone, hopefully you, used this address to sign up for CampusQ."
+msgid ""
+"Someone, hopefully you, used this address to sign up for CampusQ. Your "
+"confirmation code is:"
 msgstr ""
-"Dikush, shpresojmë ti, e përdori këtë adresë për t'u regjistruar në CampusQ."
+"Dikush, shpresojmë ti, e përdori këtë adresë për t'u regjistruar në CampusQ. "
+"Kodi yt i konfirmimit është:"
 
-#, python-format
-msgid "To confirm it, open this link: %(activate_url)s"
-msgstr "Për ta konfirmuar, hap këtë lidhje: %(activate_url)s"
+msgid ""
+"Enter it on the CampusQ page that asked for it. It expires in 15 minutes."
+msgstr "Shkruaje në faqen e CampusQ që ta kërkoi. Skadon pas 15 minutash."
+
+msgid "Never share this code. CampusQ will never ask you for it."
+msgstr "Mos ia jep askujt këtë kod. CampusQ nuk do të ta kërkojë kurrë."
 
 msgid "If it wasn't you, you can ignore this email."
 msgstr "Nëse nuk ishe ti, mund ta injorosh këtë email."
@@ -293,26 +327,6 @@ msgstr ""
 msgid "Password reset request"
 msgstr "Kërkesë për rivendosjen e fjalëkalimit"
 
-msgid "Confirm your email"
-msgstr "Konfirmo emailin"
-
-#, python-format
-msgid "Confirm that <strong>%(email)s</strong> is your email address."
-msgstr "Konfirmo që <strong>%(email)s</strong> është adresa jote e emailit."
-
-msgid "Confirm"
-msgstr "Konfirmo"
-
-msgid "This email address is already confirmed by a different account."
-msgstr "Kjo adresë emaili është konfirmuar tashmë nga një llogari tjetër."
-
-msgid ""
-"This confirmation link has expired or is not valid. Sign in again and we'll "
-"send you a new one."
-msgstr ""
-"Kjo lidhje konfirmimi ka skaduar ose nuk është e vlefshme. Hyr përsëri dhe "
-"do të të dërgojmë një të re."
-
 msgid "Sign in to CampusQ"
 msgstr "Hyr në CampusQ"
 
@@ -333,8 +347,8 @@ msgid "%(email)s is already confirmed by a different account."
 msgstr "%(email)s është konfirmuar tashmë nga një llogari tjetër."
 
 #, python-format
-msgid "We sent a confirmation email to %(email)s."
-msgstr "Të dërguam një email konfirmimi në %(email)s."
+msgid "We sent a code to %(email)s."
+msgstr "Të dërguam një kod në %(email)s."
 
 #, python-format
 msgid "You have confirmed %(email)s."
@@ -366,9 +380,6 @@ msgstr "Dërgo lidhjen"
 
 msgid "Back to sign in"
 msgstr "Kthehu te hyrja"
-
-msgid "Check your email"
-msgstr "Kontrollo emailin"
 
 msgid ""
 "If that address has an account, we sent it a link to reset the password. If "

@@ -1,7 +1,11 @@
 {% extends "account/email/base_message.txt" %}
 {% load i18n %}
-{% block content %}{% autoescape off %}{% translate "Someone, hopefully you, used this address to sign up for CampusQ." %}
+{% block content %}{% autoescape off %}{% translate "Someone, hopefully you, used this address to sign up for CampusQ. Your confirmation code is:" %}
 
-{% blocktranslate %}To confirm it, open this link: {{ activate_url }}{% endblocktranslate %}
+    {{ code }}
+
+{% translate "Enter it on the CampusQ page that asked for it. It expires in 15 minutes." %}
+
+{% translate "Never share this code. CampusQ will never ask you for it." %}
 
 {% translate "If it wasn't you, you can ignore this email." %}{% endautoescape %}{% endblock content %}
