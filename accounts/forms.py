@@ -69,3 +69,12 @@ class ChangePasswordForm(allauth_forms.ChangePasswordForm):  # type: ignore[misc
         self.fields["password2"].label = _("New password (again)")
         for field in ("oldpassword", "password1", "password2"):
             self.fields[field].widget.attrs.pop("placeholder", None)
+
+
+class ConfirmEmailVerificationCodeForm(allauth_forms.ConfirmEmailVerificationCodeForm):  # type: ignore[misc]
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        code = self.fields["code"]
+        code.label = _("Confirmation code")
+        code.widget.attrs.pop("placeholder", None)
+        code.widget.attrs.update({"inputmode": "text", "autocapitalize": "characters"})

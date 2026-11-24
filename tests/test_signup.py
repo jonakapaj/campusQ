@@ -25,15 +25,22 @@ def signup(client: Client, email: str, **extra: str) -> str:
     return client.post(reverse("account_signup"), data, follow=True).content.decode()
 
 
-def confirmation_url() -> str:
+def sent_code() -> str:
     body = str(mail.outbox[-1].body)
-    match = re.search(r"https?://[^\s]+/accounts/confirm-email/[^\s]+/", body)
+    match = re.search(r"^ {4}(\S+)$", body, re.MULTILINE)  # the indented code line
     assert match, body
-    return match.group(0).split("testserver", 1)[1]
+    return match.group(1)
+
+
+def submit_code(client: Client, code: str, **extra: str) -> str:
+    response = client.post(
+        reverse("account_email_verification_sent"), {"code": code, **extra}, follow=True
+    )
+    return response.content.decode()
 
 
 def confirm(client: Client) -> None:
-    client.post(confirmation_url(), follow=True)
+    submit_code(client, sent_code())
 
 
 @pytest.mark.django_db
@@ -126,13 +133,111 @@ def test_allowlisted_domain_can_sign_up(client: Client) -> None:
 
 
 @pytest.mark.django_db
-def test_confirm_link_does_not_confirm_on_get(client: Client) -> None:
-    # Mail scanners open links; only the POST from the page confirms.
+def test_signup_shows_the_code_page_and_emails_a_code(client: Client) -> None:
+    html = signup(client, "ana@unitir.edu.al")
+
+    assert 'name="code"' in html
+    assert "ana@unitir.edu.al" in html
+    assert sent_code()
+    assert "http" not in str(mail.outbox[0].body)  # a code, not a link
+
+
+@pytest.mark.django_db
+def test_wrong_code_is_rejected(client: Client) -> None:
     signup(client, "ana@unitir.edu.al")
 
-    client.get(confirmation_url())
+    html = submit_code(client, "WRONG1")
+
+    assert "Kodi është i pasaktë" in html
+    assert not EmailAddress.objects.get().verified
+    assert "_auth_user_id" not in client.session
+
+
+@pytest.mark.django_db
+def test_code_is_void_after_too_many_wrong_attempts(client: Client) -> None:
+    signup(client, "ana@unitir.edu.al")
+    code = sent_code()
+
+    for _ in range(settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS):
+        submit_code(client, "WRONG1")
+    submit_code(client, code)
 
     assert not EmailAddress.objects.get().verified
+    assert "_auth_user_id" not in client.session
+
+
+@pytest.mark.django_db
+def test_code_only_works_in_the_browser_that_signed_up(client: Client) -> None:
+    signup(client, "ana@unitir.edu.al")
+
+    other = Client()
+    submit_code(other, sent_code())
+
+    assert not EmailAddress.objects.get().verified
+    assert "_auth_user_id" not in other.session
+
+
+@pytest.mark.django_db
+def test_resend_is_rate_limited(client: Client) -> None:
+    signup(client, "ana@unitir.edu.al")
+
+    client.post(reverse("account_email_verification_sent"), {"action": "resend"})
+
+    assert len(mail.outbox) == 1  # allauth allows one code per address every 10 seconds
+
+
+@pytest.mark.django_db
+def test_resend_sends_a_new_code_and_the_old_one_stops_working(
+    client: Client, settings: pytest.FixtureRequest
+) -> None:
+    settings.ACCOUNT_RATE_LIMITS = {"confirm_email": None}  # type: ignore[attr-defined]
+    signup(client, "ana@unitir.edu.al")
+    old_code = sent_code()
+
+    client.post(reverse("account_email_verification_sent"), {"action": "resend"})
+    new_code = sent_code()
+    assert len(mail.outbox) == 2
+
+    if new_code != old_code:  # codes are random; a repeat is astronomically unlikely
+        submit_code(client, old_code)
+        assert not EmailAddress.objects.get().verified
+    submit_code(client, new_code)
+    assert EmailAddress.objects.get().verified
+
+
+@pytest.mark.django_db
+def test_cannot_switch_to_a_non_university_email_at_the_code_step(client: Client) -> None:
+    # allauth's "change email" form skips the adapter's .edu.al check, so it must be off.
+    signup(client, "ana@unitir.edu.al")
+
+    client.post(
+        reverse("account_email_verification_sent"),
+        {"action": "change", "email": "ana@gmail.com"},
+    )
+
+    assert User.objects.get().email == "ana@unitir.edu.al"
+    assert not EmailAddress.objects.filter(email="ana@gmail.com").exists()
+    assert all("ana@gmail.com" not in m.to for m in mail.outbox)
+
+
+@pytest.mark.django_db
+def test_signup_requires_a_password(client: Client) -> None:
+    html = signup(client, "ana@unitir.edu.al", password1="", password2="")
+
+    assert not User.objects.exists()
+    assert not mail.outbox
+    assert 'name="code"' not in html
+
+
+@pytest.mark.django_db
+def test_after_verifying_the_user_signs_in_with_email_and_password(client: Client) -> None:
+    signup(client, "ana@unitir.edu.al")
+    confirm(client)
+    client.post(reverse("account_logout"))
+
+    client.post(reverse("account_login"), {"login": "ana@unitir.edu.al", "password": PASSWORD})
+
+    assert client.session["_auth_user_id"] == str(User.objects.get().pk)
 
 
 @pytest.mark.django_db

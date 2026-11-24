@@ -1,0 +1,38 @@
+{% extends "account/_card.html" %}
+{% load i18n %}
+{% comment %}
+Shown after signup (and after signing in while unverified). The code lives in the
+session, so it must be entered in the same browser that signed up.
+{% endcomment %}
+{% block page_title %}{% translate "Check your email" %}{% endblock %}
+{% block heading %}{% translate "Check your email" %}{% endblock %}
+{% block card %}
+  <p class="mt-4 text-sm leading-6 text-stone-600 dark:text-stone-400">{% blocktranslate %}We sent a code to <strong>{{ email }}</strong>. Enter it below to confirm your university email. It expires in 15 minutes. If you can't find it, check your spam folder.{% endblocktranslate %}</p>
+  <form method="post" action="{% url 'account_email_verification_sent' %}" class="form mt-6 space-y-5" novalidate>
+    {% csrf_token %}
+    {% include "account/_fields.html" with form=verify_form %}
+    {{ redirect_field }}
+    <button type="submit" class="btn-primary w-full">{% translate "Confirm" %}</button>
+  </form>
+  <div class="mt-4 flex items-center justify-between gap-4 text-sm">
+    {% if can_resend %}
+      <form method="post" action="{% url 'account_email_verification_sent' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="resend">
+        {{ redirect_field }}
+        <button type="submit" class="link">{% translate "Send a new code" %}</button>
+      </form>
+    {% else %}
+      <span></span>
+    {% endif %}
+    {% if cancel_url %}
+      <a href="{{ cancel_url }}" class="link">{% translate "Cancel" %}</a>
+    {% else %}
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'account_login' %}">
+        <button type="submit" class="link">{% translate "Cancel" %}</button>
+      </form>
+    {% endif %}
+  </div>
+{% endblock %}

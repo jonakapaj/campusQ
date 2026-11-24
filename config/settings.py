@@ -90,6 +90,7 @@ ACCOUNT_FORMS = {
     "reset_password": "accounts.forms.ResetPasswordForm",
     "reset_password_from_key": "accounts.forms.ResetPasswordKeyForm",
     "change_password": "accounts.forms.ChangePasswordForm",
+    "confirm_email_verification_code": "accounts.forms.ConfirmEmailVerificationCodeForm",
 }
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
@@ -97,10 +98,18 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USER_DISPLAY = "accounts.models.user_display"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_MAX_EMAIL_ADDRESSES = 1
-# Unverified users cannot sign in at all; signing in again re-sends the link.
+# Unverified users cannot sign in at all. Signup (email + password) emails a short
+# code; entering it, in the same browser session, verifies the address and signs in.
+# Signing in again while unverified sends a fresh code.
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_MAX_ATTEMPTS = 3  # then the code is void
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_TIMEOUT = 15 * 60
+ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True  # up to 2 new codes per attempt
+# Off: allauth's "use a different email" form skips our .edu.al adapter check.
+ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_CHANGE = False
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_CONFIRM_EMAIL_ON_GET = False  # a POST, so mail scanners opening links confirm nothing
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False  # links are off, but never confirm on a GET anyway
 ACCOUNT_LOGOUT_ON_GET = False
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[CampusQ] "
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
