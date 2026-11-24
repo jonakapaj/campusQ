@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from django.core.exceptions import ImproperlyConfigured
 
-from config.env import env_bool, env_list, env_str, load_dotenv, parse_database_url
+from config.env import env_bool, env_int, env_list, env_str, load_dotenv, parse_database_url
 
 
 class TestEnvStr:
@@ -80,3 +80,24 @@ def test_load_dotenv_never_overrides_real_env(
 
     assert env_str("CQ_A") == "from_env"
     assert env_str("CQ_B") == "quoted"
+
+
+class TestEnvInt:
+    def test_parses(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setenv("CQ_PORT", "2525")
+        assert env_int("CQ_PORT", default=587) == 2525
+
+    @pytest.mark.parametrize("raw", [None, "", "  "])
+    def test_unset_or_blank_uses_default(
+        self, monkeypatch: pytest.MonkeyPatch, raw: str | None
+    ) -> None:
+        if raw is None:
+            monkeypatch.delenv("CQ_PORT", raising=False)
+        else:
+            monkeypatch.setenv("CQ_PORT", raw)
+        assert env_int("CQ_PORT", default=587) == 587
+
+    def test_garbage_raises(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setenv("CQ_PORT", "58x")
+        with pytest.raises(ImproperlyConfigured, match="CQ_PORT"):
+            env_int("CQ_PORT", default=587)
