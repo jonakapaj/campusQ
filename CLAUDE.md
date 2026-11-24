@@ -164,13 +164,13 @@ Known email domains (researched 2026-11-24; verify before seeding):
 </decisions>
 
 <roadmap>
-1. [ ] **Foundation**: project setup, i18n (sq/en), custom User, University +
+1. [x] **Foundation**: project setup, i18n (sq/en), custom User, University +
        `.edu.al` domain check, signup/login, email verification (console
        email backend locally), CI
        - [x] 1a skeleton: uv, settings via env, Postgres compose, i18n, tooling, CI
-       - [ ] 1b custom User, University, UniversityDomain, admin
-       - [ ] 1c domain policy + signup/login (allauth)
-       - [ ] 1d email verification + verified-only guard
+       - [x] 1b custom User, University, UniversityDomain, admin
+       - [x] 1c domain policy + signup/login (allauth)
+       - [x] 1d email verification + verified-only guard
 2. [ ] **Profiles & communities**: profiles, university and course pages,
        follow users and courses
 3. [ ] **Feed & posts**: posts with Markdown and images, comments, reactions,
