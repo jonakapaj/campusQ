@@ -17,6 +17,11 @@
         <span class="text-lg">CampusQ</span>
       </a>
 
+      {% if user.is_authenticated %}
+        <nav class="hidden flex-1 items-center gap-5 pl-8 text-sm font-medium sm:flex" aria-label="{% translate 'Main' %}">
+          <a href="{% url 'university_list' %}" class="hover:text-brand-600">{% translate "Universities" %}</a>
+        </nav>
+      {% endif %}
       <div class="flex items-center gap-3">
       <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2">
         {% csrf_token %}

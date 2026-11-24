@@ -8,8 +8,9 @@
         {% include "core/_avatar.html" with person=person size="size-16 text-xl" %}
         <div class="min-w-0 flex-1">
           <h1 class="text-2xl font-bold tracking-tight">{{ person.display_name }}</h1>
+          <div class="mt-1">{% include "core/_professor_badge.html" %}</div>
           <p class="mt-1 text-sm muted">
-            {% if person.university %}{{ person.university.name }}{% endif %}{% if person.faculty %} · {{ person.faculty.name }}{% endif %}
+            {% if person.university.is_active %}<a href="{% url 'university_detail' person.university.pk %}" class="link">{{ person.university.name }}</a>{% elif person.university %}{{ person.university.name }}{% endif %}{% if person.faculty %} · {{ person.faculty.name }}{% endif %}
           </p>
           {% if person.field_of_study or person.year %}
             <p class="mt-1 text-sm muted">

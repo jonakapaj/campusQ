@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from universities.domains import parent_domain
-from universities.models import Faculty, University, UniversityDomain
+from universities.models import Course, Faculty, University, UniversityDomain
 
 
 class UniversityDomainInline(admin.TabularInline[UniversityDomain, University]):
@@ -78,3 +78,13 @@ class FacultyAdmin(admin.ModelAdmin[Faculty]):
     list_select_related = ("university",)
     search_fields = ("name", "university__name", "university__short_name")
     autocomplete_fields = ("university",)
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin[Course]):
+    list_display = ("name", "code", "university", "faculty")
+    list_filter = ("university",)
+    list_select_related = ("university", "faculty")
+    search_fields = ("name", "code", "university__name", "university__short_name")
+    autocomplete_fields = ("university", "faculty")
+    filter_horizontal = ("professors",)  # choices are limited to verified professors

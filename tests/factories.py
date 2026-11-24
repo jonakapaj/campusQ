@@ -4,7 +4,7 @@ import factory
 from allauth.account.models import EmailAddress
 
 from accounts.models import User
-from universities.models import Faculty, University, UniversityDomain
+from universities.models import Course, Faculty, University, UniversityDomain
 
 
 class UniversityFactory(factory.django.DjangoModelFactory[University]):
@@ -46,3 +46,20 @@ class UserFactory(factory.django.DjangoModelFactory[User]):
     def verified(obj: User, create: bool, extracted: bool | None, **kwargs: Any) -> None:  # noqa: N805
         if create and extracted is not False:
             EmailAddress.objects.create(user=obj, email=obj.email, primary=True, verified=True)
+
+
+class CourseFactory(factory.django.DjangoModelFactory[Course]):
+    class Meta:
+        model = Course
+        skip_postgeneration_save = True
+
+    university = factory.SubFactory(UniversityFactory)
+    name = factory.Sequence(lambda n: f"Lënda {n}")
+    code = factory.Sequence(lambda n: f"INF{100 + n}")
+
+
+def professor(**kwargs: Any) -> User:
+    """A verified professor."""
+    return UserFactory.create(
+        role=User.Role.PROFESSOR, professor_status=User.ProfessorStatus.VERIFIED, **kwargs
+    )
