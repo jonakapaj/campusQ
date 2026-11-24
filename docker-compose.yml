@@ -1,3 +1,5 @@
+name: campusq  # fixed, so renaming the folder never orphans the database
+
 services:
   db:
     image: postgres:16-alpine

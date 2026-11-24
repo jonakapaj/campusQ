@@ -19,6 +19,7 @@ class AccountAdapter(DefaultAccountAdapter):  # type: ignore[misc]
         "email_password_mismatch": _("The email address and/or password are not correct."),
         "email_taken": _("A user is already registered with this email address."),
         "enter_current_password": _("Please type your current password."),
+        "incorrect_code": _("Incorrect code."),
         "incorrect_password": _("Incorrect password."),
         "invalid_or_expired_key": _("Invalid or expired key."),
         "invalid_password_reset": _("The password reset link was invalid."),
