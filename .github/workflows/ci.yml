@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: campusq
+          POSTGRES_USER: campusq
+          POSTGRES_PASSWORD: campusq
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U campusq -d campusq"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 15
+
+    env:
+      DJANGO_SECRET_KEY: ci-only-not-a-secret
+      DJANGO_DEBUG: "false"
+      DJANGO_SECURE_SSL_REDIRECT: "false"
+      DATABASE_URL: postgres://campusq:campusq@localhost:5432/campusq
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends gettext
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Mypy
+        run: uv run mypy .
+
+      - name: Translations are complete and up to date
+        run: ./scripts/check_translations.sh
+
+      - name: Compile translations
+        run: uv run python manage.py compilemessages --ignore='.venv/*'
+
+      - name: Django system checks
+        run: uv run python manage.py check --fail-level WARNING
+
+      - name: No missing migrations
+        run: uv run python manage.py makemigrations --check --dry-run
+
+      - name: Tests
+        run: uv run pytest
