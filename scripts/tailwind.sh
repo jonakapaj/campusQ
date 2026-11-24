@@ -24,7 +24,7 @@ if [[ ! -x "$bin" ]]; then
   trap 'rm -rf "$tmp"' EXIT
   curl -fsSL --http1.1 --retry 5 --retry-all-errors -o "$tmp/$asset" "$base/$asset"
   curl -fsSL --http1.1 --retry 5 --retry-all-errors -o "$tmp/sha256sums.txt" "$base/sha256sums.txt"
-  expected=$(grep " \./$asset\$\| $asset\$" "$tmp/sha256sums.txt" | awk '{print $1}')
+  expected=$(grep -E " (\./)?$asset\$" "$tmp/sha256sums.txt" | awk '{print $1}' || true)
   actual=$(shasum -a 256 "$tmp/$asset" | awk '{print $1}')
   if [[ -z "$expected" || "$expected" != "$actual" ]]; then
     echo "Checksum mismatch for $asset (expected '$expected', got '$actual')" >&2
