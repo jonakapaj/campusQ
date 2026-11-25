@@ -1,0 +1,17 @@
+{% load i18n %}
+<div id="follow-user-{{ person.pk }}" class="flex items-center gap-4 text-sm">
+  <a href="{% url 'followers' person.pk %}" class="hover:underline">{% blocktranslate count counter=follower_count %}<strong>{{ counter }}</strong> follower{% plural %}<strong>{{ counter }}</strong> followers{% endblocktranslate %}</a>
+  <a href="{% url 'following' person.pk %}" class="hover:underline">{% blocktranslate with count=following_count %}<strong>{{ count }}</strong> following{% endblocktranslate %}</a>
+  {% if person != user %}
+    <form method="post" action="{% url 'follow_user' person.pk %}" hx-post="{% url 'follow_user' person.pk %}" hx-target="#follow-user-{{ person.pk }}" hx-swap="outerHTML">
+      {% csrf_token %}
+      {% if is_following %}
+        <input type="hidden" name="follow" value="0">
+        <button type="submit" class="btn-secondary">{% translate "Following" %}</button>
+      {% else %}
+        <input type="hidden" name="follow" value="1">
+        <button type="submit" class="btn-primary py-1.5">{% translate "Follow" %}</button>
+      {% endif %}
+    </form>
+  {% endif %}
+</div>

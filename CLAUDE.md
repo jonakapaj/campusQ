@@ -160,6 +160,23 @@ Agreed 2026-11-25:
   SPF/DKIM is decided at Milestone 5.
 - Compose project is pinned to `name: campusq`.
 
+Milestone 2 (2026-11-25, decided by Claude with the user's go-ahead):
+- Profile URLs use the numeric id (`/u/<id>/`); handles can come later.
+- Avatars are an initials circle until image uploads land in Milestone 3.
+- Profiles are visible to every verified user, across universities.
+  Private content (posts) stays scoped to its university.
+- A PENDING university (and its courses) is visible only to its own members
+  and platform admins (`University.objects.visible_to(user)`).
+- `User.is_platform_admin` (superuser or role ADMIN, and active) gates
+  moderation and review pages. `is_staff` only means Django admin access.
+- Courses are admin-managed for now. `Course.professors` only accepts
+  verified professors.
+- Follows are two explicit tables (`UserFollow`, `CourseFollow`), not a
+  generic relation, so they get real FKs and unique constraints.
+- HTMX 2.0.4 is vendored in `static/vendor/` (no npm). Every HTMX form also
+  works as a plain POST without JS. The CSRF token is sent via `hx-headers`.
+- Views take `AuthedRequest` and use `core.auth.verified_required`.
+
 Known email domains (researched 2026-11-24; verify before seeding):
 - University of Tirana: students get `name_surname.<faculty>student@unitir.edu.al`
   (faculty code is in the local part, not a subdomain). Confirmed on unitir.edu.al.
@@ -181,8 +198,11 @@ Known email domains (researched 2026-11-24; verify before seeding):
        - [x] 1c domain policy + signup/login (allauth)
        - [x] 1d email verification + verified-only guard
        - [x] 1e verification by code, SMTP (Brevo) config, compose name pinned
-2. [ ] **Profiles & communities**: profiles, university and course pages,
+2. [x] **Profiles & communities**: profiles, university and course pages,
        follow users and courses
+       - [x] 2a profiles + faculties
+       - [x] 2b courses, university and course pages
+       - [x] 2c follow users and courses (HTMX)
 3. [ ] **Feed & posts**: posts with Markdown and images, comments, reactions,
        home feed (followed courses, people and your university)
 4. [ ] **Q&A**: questions, answers, accepted answers, anonymous-to-peers,

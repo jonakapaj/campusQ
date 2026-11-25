@@ -5,11 +5,16 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from universities.domains import parent_domain
-from universities.models import University, UniversityDomain
+from universities.models import Course, Faculty, University, UniversityDomain
 
 
 class UniversityDomainInline(admin.TabularInline[UniversityDomain, University]):
     model = UniversityDomain
+    extra = 0
+
+
+class FacultyInline(admin.TabularInline[Faculty, University]):
+    model = Faculty
     extra = 0
 
 
@@ -19,7 +24,7 @@ class UniversityAdmin(admin.ModelAdmin[University]):
     list_filter = ("status",)
     search_fields = ("name", "short_name", "domains__domain")
     readonly_fields = ("parent_hint", "created_at")
-    inlines = (UniversityDomainInline,)
+    inlines = (UniversityDomainInline, FacultyInline)
     actions = ("activate",)
 
     def get_queryset(self, request: HttpRequest) -> QuerySet[University]:
@@ -64,3 +69,22 @@ class UniversityDomainAdmin(admin.ModelAdmin[UniversityDomain]):
     list_select_related = ("university",)
     search_fields = ("domain", "university__name")
     autocomplete_fields = ("university",)
+
+
+@admin.register(Faculty)
+class FacultyAdmin(admin.ModelAdmin[Faculty]):
+    list_display = ("name", "university")
+    list_filter = ("university",)
+    list_select_related = ("university",)
+    search_fields = ("name", "university__name", "university__short_name")
+    autocomplete_fields = ("university",)
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin[Course]):
+    list_display = ("name", "code", "university", "faculty")
+    list_filter = ("university",)
+    list_select_related = ("university", "faculty")
+    search_fields = ("name", "code", "university__name", "university__short_name")
+    autocomplete_fields = ("university", "faculty")
+    filter_horizontal = ("professors",)  # choices are limited to verified professors

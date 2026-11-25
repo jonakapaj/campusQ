@@ -7,9 +7,10 @@
   <meta name="robots" content="noindex, nofollow">
   <title>{% block title %}CampusQ{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'vendor/htmx-2.0.4.min.js' %}" defer></script>
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>
-<body class="flex min-h-full flex-col bg-stone-50 font-sans text-stone-900 antialiased dark:bg-stone-950 dark:text-stone-100">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="flex min-h-full flex-col bg-stone-50 font-sans text-stone-900 antialiased dark:bg-stone-950 dark:text-stone-100">
   <header class="sticky top-0 z-10 border-b border-stone-200 bg-white/80 backdrop-blur dark:border-stone-800 dark:bg-stone-900/80">
     <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
       <a href="{% url 'home' %}" class="flex items-center gap-2 font-semibold tracking-tight">
@@ -17,6 +18,11 @@
         <span class="text-lg">CampusQ</span>
       </a>
 
+      {% if user.is_authenticated %}
+        <nav class="hidden flex-1 items-center gap-5 pl-8 text-sm font-medium sm:flex" aria-label="{% translate 'Main' %}">
+          <a href="{% url 'university_list' %}" class="hover:text-brand-600">{% translate "Universities" %}</a>
+        </nav>
+      {% endif %}
       <div class="flex items-center gap-3">
       <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2">
         {% csrf_token %}
@@ -36,7 +42,10 @@
       </form>
 
       {% if user.is_authenticated %}
-        <span class="hidden text-sm text-stone-600 sm:inline dark:text-stone-400">{{ user.display_name|default:user.email }}</span>
+        <a href="{% url 'profile' user.pk %}" class="hidden items-center gap-2 text-sm font-medium hover:text-brand-600 sm:flex">
+          {% include "core/_avatar.html" with person=user size="size-8 text-xs" %}
+          <span>{{ user.display_name|default:user.email }}</span>
+        </a>
         <form action="{% url 'account_logout' %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn-secondary">{% translate "Sign out" %}</button>

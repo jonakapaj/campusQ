@@ -1,9 +1,14 @@
 import re
-from typing import Any
+from typing import TYPE_CHECKING, Any, ClassVar
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from accounts.models import User
 
 # A DNS hostname with at least two labels: letters, digits and inner hyphens.
 _DOMAIN_RE = re.compile(
@@ -24,6 +29,14 @@ def validate_domain(value: str) -> None:
         )
 
 
+class UniversityQuerySet(models.QuerySet["University"]):
+    def visible_to(self, user: "User") -> "UniversityQuerySet":
+        """ACTIVE universities, plus a PENDING one for its own members and for admins."""
+        if user.is_platform_admin:
+            return self
+        return self.filter(Q(status=University.Status.ACTIVE) | Q(pk=user.university_id))
+
+
 class University(models.Model):
     class Status(models.TextChoices):
         ACTIVE = "ACTIVE", _("Active")
@@ -38,6 +51,8 @@ class University(models.Model):
         _("status"), max_length=10, choices=Status.choices, default=Status.PENDING
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+
+    objects = UniversityQuerySet.as_manager()
 
     class Meta:
         ordering = ("name",)
@@ -85,3 +100,75 @@ class UniversityDomain(models.Model):
     def clean(self) -> None:
         # Normalise before the unique check so "UniTir.edu.al" collides with "unitir.edu.al".
         self.domain = normalize_domain(self.domain)
+
+
+class Faculty(models.Model):
+    university = models.ForeignKey(
+        University,
+        on_delete=models.CASCADE,
+        related_name="faculties",
+        verbose_name=_("university"),
+    )
+    name = models.CharField(_("name"), max_length=200)
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = _("faculty")
+        verbose_name_plural = _("faculties")
+        constraints: ClassVar = [
+            models.UniqueConstraint(
+                fields=("university", "name"), name="faculty_name_unique_per_university"
+            ),
+        ]
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Course(models.Model):
+    university = models.ForeignKey(
+        University,
+        on_delete=models.CASCADE,
+        related_name="courses",
+        verbose_name=_("university"),
+    )
+    faculty = models.ForeignKey(
+        Faculty,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="courses",
+        verbose_name=_("faculty"),
+    )
+    name = models.CharField(_("name"), max_length=200)
+    code = models.CharField(_("code"), max_length=30, blank=True, help_text=_("e.g. INF201"))
+    description = models.TextField(_("description"), max_length=2000, blank=True)
+    # Verified professors only; the admin form enforces it and endorsements re-check it.
+    professors = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name="taught_courses",
+        verbose_name=_("professors"),
+        limit_choices_to={"role": "PROFESSOR", "professor_status": "VERIFIED"},
+    )
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = _("course")
+        verbose_name_plural = _("courses")
+        constraints: ClassVar = [
+            models.UniqueConstraint(
+                fields=("university", "name"), name="course_name_unique_per_university"
+            ),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.code} {self.name}".strip()
+
+    def clean(self) -> None:
+        super().clean()
+        if self.faculty is not None and self.faculty.university_id != self.university_id:
+            raise ValidationError(
+                {"faculty": _("The faculty must belong to the course's university.")}
+            )
