@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 01:04+0100\n"
+"POT-Creation-Date: 2026-11-25 01:06+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -334,6 +334,9 @@ msgstr "Shkruaj diçka fillimisht."
 msgid "You can add at most 4 pictures."
 msgstr "Mund të shtosh deri në 4 foto."
 
+msgid "Write a comment"
+msgstr "Shkruaj një koment"
+
 msgid "Post"
 msgstr "Postim"
 
@@ -367,8 +370,23 @@ msgstr "foto e postimit"
 msgid "post images"
 msgstr "foto të postimeve"
 
+msgid "comment"
+msgstr "komenti"
+
+msgid "comments"
+msgstr "komentet"
+
 msgid "Open"
 msgstr "Hap"
+
+msgid "Delete this comment?"
+msgstr "Ta fshish këtë koment?"
+
+msgid "Delete"
+msgstr "Fshi"
+
+msgid "Comment"
+msgstr "Komento"
 
 msgid "edited"
 msgstr "ndryshuar"
@@ -379,8 +397,8 @@ msgstr "Ndrysho"
 msgid "Delete this post?"
 msgstr "Ta fshish këtë postim?"
 
-msgid "Delete"
-msgstr "Fshi"
+msgid "Comments"
+msgstr "Komentet"
 
 msgid "Edit post"
 msgstr "Ndrysho postimin"

@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import User
 from core.forms import MultipleFileField
 from core.images import process_image
-from posts.models import MAX_IMAGES_PER_POST, Post, PostImage
+from posts.models import MAX_IMAGES_PER_POST, Comment, Post, PostImage
 from universities.models import Course
 
 
@@ -71,3 +71,19 @@ class PostForm(forms.ModelForm[Post]):
             for position, content in enumerate(self.processed_images):
                 PostImage.objects.create(post=post, image=content, position=position)
         return post
+
+
+class CommentForm(forms.ModelForm[Comment]):
+    class Meta:
+        model = Comment
+        fields = ("body",)
+        labels: ClassVar[dict[str, Promise]] = {"body": _("Write a comment")}
+        widgets: ClassVar[dict[str, forms.Widget]] = {
+            "body": forms.Textarea(attrs={"rows": 2}),
+        }
+
+    def clean_body(self) -> str:
+        body: str = self.cleaned_data["body"].strip()
+        if not body:
+            raise forms.ValidationError(_("Write something first."))
+        return body

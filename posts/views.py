@@ -5,8 +5,8 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from core.auth import AuthedRequest, verified_required
-from posts.forms import PostForm
-from posts.models import Post
+from posts.forms import CommentForm, PostForm
+from posts.models import Comment, Post
 
 
 def _visible_post(request: AuthedRequest, pk: int) -> Post:
@@ -36,7 +36,12 @@ def post_create(request: AuthedRequest) -> HttpResponse:
 @verified_required
 def post_detail(request: AuthedRequest, pk: int) -> HttpResponse:
     post = _visible_post(request, pk)
-    return render(request, "posts/detail.html", {"post": post})
+    comments = Comment.objects.visible_to(request.user).filter(post=post).select_related("author")
+    return render(
+        request,
+        "posts/detail.html",
+        {"post": post, "comments": comments, "comment_form": CommentForm()},
+    )
 
 
 @verified_required
@@ -61,3 +66,41 @@ def post_delete(request: AuthedRequest, pk: int) -> HttpResponse:
     post.delete()
     messages.success(request, _("Deleted."))
     return redirect("home")
+
+
+@require_POST
+@verified_required
+def comment_create(request: AuthedRequest, pk: int) -> HttpResponse:
+    post = _visible_post(request, pk)
+    if post.is_question:
+        raise Http404  # questions get answers, not comments
+    form = CommentForm(request.POST)
+    htmx = request.headers.get("HX-Request") == "true"
+    if not form.is_valid():
+        if htmx:
+            return render(request, "posts/_comment_form.html", {"post": post, "comment_form": form})
+        messages.error(request, _("Write something first."))
+        return redirect("post_detail", pk=post.pk)
+    comment = form.save(commit=False)
+    comment.post = post
+    comment.author = request.user
+    comment.save()
+    if htmx:
+        return render(
+            request,
+            "posts/_comment_created.html",
+            {"post": post, "comment": comment, "comment_form": CommentForm()},
+        )
+    return redirect(f"{post.get_absolute_url()}#comment-{comment.pk}")
+
+
+@require_POST
+@verified_required
+def comment_delete(request: AuthedRequest, pk: int) -> HttpResponse:
+    comment = get_object_or_404(Comment.objects.visible_to(request.user), pk=pk)
+    if not comment.can_delete(request.user):
+        raise Http404
+    comment.delete()
+    if request.headers.get("HX-Request") == "true":
+        return HttpResponse("")
+    return redirect("post_detail", pk=comment.post_id)

@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, Any, ClassVar
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from core.markdown import render_markdown
@@ -77,6 +78,9 @@ class Post(models.Model):
         self.body_html = render_markdown(self.body)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self) -> str:
+        return reverse("post_detail", args=[self.pk])
+
     @property
     def is_question(self) -> bool:
         return self.kind == self.Kind.QUESTION
@@ -109,3 +113,37 @@ class PostImage(models.Model):
 
     def __str__(self) -> str:
         return str(self.image.name)
+
+
+COMMENT_MAX_LENGTH = 2000
+
+
+class CommentQuerySet(models.QuerySet["Comment"]):
+    def visible_to(self, user: "User") -> "CommentQuerySet":
+        visible = self.filter(post__in=Post.objects.visible_to(user))
+        if user.is_platform_admin:
+            return visible
+        return visible.filter(is_hidden=False, author__is_active=True)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+    )
+    body = models.TextField(_("comment"), max_length=COMMENT_MAX_LENGTH)
+    is_hidden = models.BooleanField(_("hidden by a moderator"), default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = CommentQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("created_at",)
+        verbose_name = _("comment")
+        verbose_name_plural = _("comments")
+
+    def __str__(self) -> str:
+        return self.body[:60]
+
+    def can_delete(self, user: "User") -> bool:
+        return user.pk == self.author_id or user.is_platform_admin
