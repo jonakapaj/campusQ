@@ -1,0 +1,16 @@
+{% load i18n %}
+<div id="like-{{ post.pk }}" class="inline-flex">
+  {% if post.author_id == user.pk %}
+    <span class="inline-flex items-center gap-1 muted" title="{% translate 'Likes' %}">♥ {{ post.like_count }}</span>
+  {% else %}
+    <form method="post" action="{% url 'post_react' post.pk %}" hx-post="{% url 'post_react' post.pk %}" hx-target="#like-{{ post.pk }}" hx-swap="outerHTML">
+      {% csrf_token %}
+      <input type="hidden" name="like" value="{% if post.liked %}0{% else %}1{% endif %}">
+      <button type="submit" class="inline-flex items-center gap-1 rounded-lg px-2 py-1 hover:bg-stone-100 dark:hover:bg-stone-800 {% if post.liked %}text-brand-600{% else %}muted{% endif %}" aria-pressed="{% if post.liked %}true{% else %}false{% endif %}">
+        <span aria-hidden="true">{% if post.liked %}♥{% else %}♡{% endif %}</span>
+        <span>{{ post.like_count }}</span>
+        <span class="sr-only">{% if post.liked %}{% translate "Unlike" %}{% else %}{% translate "Like" %}{% endif %}</span>
+      </button>
+    </form>
+  {% endif %}
+</div>

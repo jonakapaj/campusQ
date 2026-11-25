@@ -147,3 +147,23 @@ class Comment(models.Model):
 
     def can_delete(self, user: "User") -> bool:
         return user.pk == self.author_id or user.is_platform_admin
+
+
+class PostReaction(models.Model):
+    """A "like". One per user per post; nobody can like their own post."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="post_reactions"
+    )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="reactions")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("reaction")
+        verbose_name_plural = _("reactions")
+        constraints: ClassVar = [
+            models.UniqueConstraint(fields=("user", "post"), name="one_reaction_per_post"),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.user_id} ♥ {self.post_id}"

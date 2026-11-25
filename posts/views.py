@@ -6,7 +6,8 @@ from django.views.decorators.http import require_POST
 
 from core.auth import AuthedRequest, verified_required
 from posts.forms import CommentForm, PostForm
-from posts.models import Comment, Post
+from posts.models import Comment, Post, PostReaction
+from posts.queries import feed_posts
 
 
 def _visible_post(request: AuthedRequest, pk: int) -> Post:
@@ -35,7 +36,7 @@ def post_create(request: AuthedRequest) -> HttpResponse:
 
 @verified_required
 def post_detail(request: AuthedRequest, pk: int) -> HttpResponse:
-    post = _visible_post(request, pk)
+    post = get_object_or_404(feed_posts(request.user), pk=pk)
     comments = Comment.objects.visible_to(request.user).filter(post=post).select_related("author")
     return render(
         request,
@@ -104,3 +105,19 @@ def comment_delete(request: AuthedRequest, pk: int) -> HttpResponse:
     if request.headers.get("HX-Request") == "true":
         return HttpResponse("")
     return redirect("post_detail", pk=comment.post_id)
+
+
+@require_POST
+@verified_required
+def post_react(request: AuthedRequest, pk: int) -> HttpResponse:
+    post = _visible_post(request, pk)
+    if post.author_id == request.user.pk:
+        raise Http404  # no liking your own post
+    if request.POST.get("like") == "1":
+        PostReaction.objects.get_or_create(user=request.user, post=post)
+    else:
+        PostReaction.objects.filter(user=request.user, post=post).delete()
+    if request.headers.get("HX-Request") == "true":
+        post = get_object_or_404(feed_posts(request.user), pk=pk)
+        return render(request, "posts/_like.html", {"post": post})
+    return redirect("post_detail", pk=post.pk)

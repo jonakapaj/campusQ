@@ -21,6 +21,7 @@
       {% if post.title %}<h1 class="mt-4 text-2xl font-bold tracking-tight">{{ post.title }}</h1>{% endif %}
       <div class="prose-post mt-4">{{ post.body_html|safe }}</div>
   {% include "posts/_images.html" %}
+      <div class="mt-4 text-sm">{% include "posts/_like.html" %}</div>
     </article>
     {% block below_post %}
       {% if not post.is_question %}

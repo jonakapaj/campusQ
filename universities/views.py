@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from core.auth import AuthedRequest, verified_required
-from posts.models import Post
+from posts.queries import feed_posts
 from social.services import course_follow_context
 from universities.models import Course, Faculty, University
 
@@ -51,11 +51,7 @@ def course_detail(request: AuthedRequest, pk: int) -> HttpResponse:
     )
     professors = course.professors.filter(is_active=True).order_by("display_name")
     # Other universities' members see the course but none of its posts.
-    posts = (
-        Post.objects.visible_to(request.user)
-        .filter(course=course)
-        .select_related("author", "author__university", "course")[:30]
-    )
+    posts = feed_posts(request.user).filter(course=course)[:30]
     context = {
         **course_follow_context(request.user, course),
         "professors": professors,
