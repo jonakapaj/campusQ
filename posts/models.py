@@ -90,3 +90,22 @@ class Post(models.Model):
 
     def can_delete(self, user: "User") -> bool:
         return user.pk == self.author_id or user.is_platform_admin
+
+
+MAX_IMAGES_PER_POST = 4
+
+
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="posts/", width_field="width", height_field="height")
+    width = models.PositiveIntegerField(default=0)
+    height = models.PositiveIntegerField(default=0)
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ("position", "pk")
+        verbose_name = _("post image")
+        verbose_name_plural = _("post images")
+
+    def __str__(self) -> str:
+        return str(self.image.name)

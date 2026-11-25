@@ -142,6 +142,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # static/css/app.css is built by ./scripts/tailwind.sh (not committed).
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+# --- Uploaded media -----------------------------------------------------------
+# Never served as public files: core.views.media checks permissions per file.
+
+MEDIA_ROOT = Path(env_str("DJANGO_MEDIA_ROOT", default=str(BASE_DIR / "media")))
+MEDIA_URL = "/media/"
+FILE_UPLOAD_PERMISSIONS = 0o640
+DATA_UPLOAD_MAX_NUMBER_FILES = 10
+
 # --- Email ------------------------------------------------------------------
 
 EMAIL_BACKEND = env_str(

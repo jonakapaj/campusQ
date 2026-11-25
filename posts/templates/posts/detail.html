@@ -20,6 +20,7 @@
       </div>
       {% if post.title %}<h1 class="mt-4 text-2xl font-bold tracking-tight">{{ post.title }}</h1>{% endif %}
       <div class="prose-post mt-4">{{ post.body_html|safe }}</div>
+  {% include "posts/_images.html" %}
     </article>
     {% block below_post %}{% endblock %}
   </div>

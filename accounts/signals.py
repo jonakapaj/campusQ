@@ -2,9 +2,11 @@ from typing import Any
 
 from allauth.account.models import EmailAddress
 from allauth.account.signals import email_confirmed
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.http import HttpRequest
 
+from accounts.models import User
 from universities.domains import university_for_email
 
 
@@ -22,3 +24,9 @@ def link_university(
     if university is not None and user.university_id != university.pk:
         user.university = university
         user.save(update_fields=["university"])
+
+
+@receiver(post_delete, sender=User)
+def delete_avatar_file(sender: type[User], instance: User, **kwargs: Any) -> None:
+    if instance.avatar:
+        instance.avatar.delete(save=False)

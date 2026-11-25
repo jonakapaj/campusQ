@@ -1,3 +1,4 @@
+import pathlib
 from collections.abc import Iterator
 
 import pytest
@@ -15,3 +16,9 @@ def _clear_rate_limits() -> Iterator[None]:
     cache.clear()
     yield
     cache.clear()
+
+
+@pytest.fixture(autouse=True)
+def _media_in_tmp(settings: pytest.FixtureRequest, tmp_path: "pathlib.Path") -> None:
+    # Uploaded files go to a per-test folder, never into the real media/ directory.
+    settings.MEDIA_ROOT = tmp_path / "media"  # type: ignore[attr-defined]

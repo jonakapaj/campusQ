@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 
+from core import media
 from core import views as core_views
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path("", include("posts.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path("admin/", admin.site.urls),
+    path("media/<path:path>", media.media, name="media"),
 ]

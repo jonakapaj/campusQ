@@ -11,9 +11,9 @@ from posts.models import Post
 
 def _visible_post(request: AuthedRequest, pk: int) -> Post:
     return get_object_or_404(
-        Post.objects.visible_to(request.user).select_related(
-            "author", "author__university", "course", "university"
-        ),
+        Post.objects.visible_to(request.user)
+        .select_related("author", "author__university", "course", "university")
+        .prefetch_related("images"),
         pk=pk,
     )
 
@@ -24,7 +24,9 @@ def post_create(request: AuthedRequest) -> HttpResponse:
         messages.error(request, _("Only members of a university can post."))
         return redirect("home")
     initial = {"course": request.GET.get("course")}
-    form = PostForm(request.POST or None, author=request.user, initial=initial)
+    form = PostForm(
+        request.POST or None, request.FILES or None, author=request.user, initial=initial
+    )
     if request.method == "POST" and form.is_valid():
         post = form.save()
         return redirect("post_detail", pk=post.pk)

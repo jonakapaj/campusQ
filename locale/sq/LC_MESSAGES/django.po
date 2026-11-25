@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 01:01+0100\n"
+"POT-Creation-Date: 2026-11-25 01:04+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -161,6 +161,9 @@ msgstr "viti i studimeve"
 msgid "bio"
 msgstr "biografia"
 
+msgid "photo"
+msgstr "foto"
+
 msgid "active"
 msgstr "aktiv"
 
@@ -178,6 +181,15 @@ msgstr "përdorues"
 
 msgid "users"
 msgstr "përdoruesit"
+
+msgid "Photo"
+msgstr "Foto"
+
+msgid "JPEG, PNG or WebP, up to 5 MB. It is cropped to a square."
+msgstr "JPEG, PNG ose WebP, deri në 5 MB. Pritet në formë katrore."
+
+msgid "Remove my photo"
+msgstr "Hiq foton time"
 
 msgid "Faculty"
 msgstr "Fakulteti"
@@ -221,6 +233,18 @@ msgstr "Shqip"
 
 msgid "English"
 msgstr "Anglisht"
+
+msgid "Images can be at most 5 MB."
+msgstr "Imazhet mund të jenë deri në 5 MB."
+
+msgid "Use a JPEG, PNG or WebP image."
+msgstr "Përdor një imazh JPEG, PNG ose WebP."
+
+msgid "This image is too large."
+msgstr "Ky imazh është shumë i madh."
+
+msgid "This file is not a valid image."
+msgstr "Ky skedar nuk është imazh i vlefshëm."
 
 msgid "An admin verified this professor."
 msgstr "Një administrator e ka verifikuar këtë pedagog."
@@ -283,6 +307,14 @@ msgstr ""
 msgid "Posts"
 msgstr "Postimet"
 
+msgid "Pictures (optional)"
+msgstr "Foto (opsionale)"
+
+msgid "Up to 4 JPEG, PNG or WebP images, 5 MB each. Location data is removed."
+msgstr ""
+"Deri në 4 imazhe JPEG, PNG ose WebP, 5 MB secili. Të dhënat e vendndodhjes "
+"hiqen."
+
 msgid "Course (optional)"
 msgstr "Lënda (opsionale)"
 
@@ -298,6 +330,9 @@ msgstr "Pa lëndë"
 
 msgid "Write something first."
 msgstr "Shkruaj diçka fillimisht."
+
+msgid "You can add at most 4 pictures."
+msgstr "Mund të shtosh deri në 4 foto."
 
 msgid "Post"
 msgstr "Postim"
@@ -325,6 +360,12 @@ msgstr "postim"
 
 msgid "posts"
 msgstr "postime"
+
+msgid "post image"
+msgstr "foto e postimit"
+
+msgid "post images"
+msgstr "foto të postimeve"
 
 msgid "Open"
 msgstr "Hap"
