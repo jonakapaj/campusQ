@@ -6,3 +6,11 @@ document.addEventListener("change", (event) => {
     target.form?.requestSubmit();
   }
 });
+
+// <form data-confirm="Question?"> asks before submitting. Without JS it just submits.
+document.addEventListener("submit", (event) => {
+  const form = event.target;
+  if (form instanceof HTMLFormElement && form.dataset.confirm && !window.confirm(form.dataset.confirm)) {
+    event.preventDefault();
+  }
+});

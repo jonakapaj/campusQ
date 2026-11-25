@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "universities",
     "accounts",
     "social",
+    "posts",
 ]
 
 MIDDLEWARE = [

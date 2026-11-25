@@ -4,6 +4,7 @@ import factory
 from allauth.account.models import EmailAddress
 
 from accounts.models import User
+from posts.models import Post
 from universities.models import Course, Faculty, University, UniversityDomain
 
 
@@ -63,3 +64,12 @@ def professor(**kwargs: Any) -> User:
     return UserFactory.create(
         role=User.Role.PROFESSOR, professor_status=User.ProfessorStatus.VERIFIED, **kwargs
     )
+
+
+class PostFactory(factory.django.DjangoModelFactory[Post]):
+    class Meta:
+        model = Post
+
+    author = factory.SubFactory(UserFactory, university=factory.SubFactory(UniversityFactory))
+    university = factory.LazyAttribute(lambda o: o.author.university)
+    body = "Përshëndetje nga **CampusQ**!"

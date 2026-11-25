@@ -31,6 +31,44 @@
   .badge {
     @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ring-1;
   }
+  /* Rendered Markdown (already sanitized server-side). */
+  .prose-post {
+    @apply text-sm leading-6 break-words;
+  }
+  .prose-post > * + * {
+    @apply mt-3;
+  }
+  .prose-post a {
+    @apply font-medium text-brand-600 underline dark:text-brand-100;
+  }
+  .prose-post ul {
+    @apply list-disc pl-5;
+  }
+  .prose-post ol {
+    @apply list-decimal pl-5;
+  }
+  .prose-post blockquote {
+    @apply border-l-4 border-stone-300 pl-3 text-stone-600 dark:border-stone-700 dark:text-stone-400;
+  }
+  .prose-post :not(pre) > code {
+    @apply rounded bg-stone-100 px-1 py-0.5 font-mono text-[0.85em] dark:bg-stone-800;
+  }
+  .prose-post pre {
+    @apply overflow-x-auto rounded-lg bg-stone-900 p-3 font-mono text-xs leading-5 text-stone-100;
+  }
+  .prose-post h3 {
+    @apply text-base font-semibold;
+  }
+  .prose-post h4 {
+    @apply font-semibold;
+  }
+  .prose-post table {
+    @apply w-full text-left text-xs;
+  }
+  .prose-post th,
+  .prose-post td {
+    @apply border border-stone-200 px-2 py-1 dark:border-stone-800;
+  }
   .link {
     @apply font-medium text-brand-600 hover:text-brand-700 hover:underline dark:text-brand-100;
   }

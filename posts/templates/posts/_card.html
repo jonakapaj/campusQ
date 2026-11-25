@@ -1,0 +1,11 @@
+{% load i18n %}
+<article class="card" id="post-{{ post.pk }}">
+  {% include "posts/_meta.html" %}
+  {% if post.title %}<h2 class="mt-3 text-lg font-semibold"><a href="{% url 'post_detail' post.pk %}" class="hover:underline">{{ post.title }}</a></h2>{% endif %}
+  <div class="prose-post mt-3">{{ post.body_html|safe }}</div>
+  {% block card_footer %}
+    <div class="mt-4 flex items-center gap-4 text-sm muted">
+      <a href="{% url 'post_detail' post.pk %}" class="hover:underline">{% translate "Open" %}</a>
+    </div>
+  {% endblock %}
+</article>

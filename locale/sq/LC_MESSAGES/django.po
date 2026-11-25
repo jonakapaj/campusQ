@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 00:56+0100\n"
+"POT-Creation-Date: 2026-11-25 01:01+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -279,6 +279,89 @@ msgid "Professors are verified by an admin, and their answers carry a badge."
 msgstr ""
 "Pedagogët verifikohen nga një administrator dhe përgjigjet e tyre kanë një "
 "shenjë dalluese."
+
+msgid "Posts"
+msgstr "Postimet"
+
+msgid "Course (optional)"
+msgstr "Lënda (opsionale)"
+
+msgid "What's on your mind?"
+msgstr "Çfarë ke në mendje?"
+
+msgid "Markdown works: **bold**, *italic*, `code`, lists and links."
+msgstr ""
+"Funksionon Markdown: **i trashë**, *i pjerrët*, `kod`, lista dhe lidhje."
+
+msgid "No course"
+msgstr "Pa lëndë"
+
+msgid "Write something first."
+msgstr "Shkruaj diçka fillimisht."
+
+msgid "Post"
+msgstr "Postim"
+
+msgid "Question"
+msgstr "Pyetje"
+
+msgid "course"
+msgstr "lënda"
+
+msgid "title"
+msgstr "titulli"
+
+msgid "text"
+msgstr "teksti"
+
+msgid "anonymous"
+msgstr "anonim"
+
+msgid "hidden by a moderator"
+msgstr "fshehur nga një moderator"
+
+msgid "post"
+msgstr "postim"
+
+msgid "posts"
+msgstr "postime"
+
+msgid "Open"
+msgstr "Hap"
+
+msgid "edited"
+msgstr "ndryshuar"
+
+msgid "Edit"
+msgstr "Ndrysho"
+
+msgid "Delete this post?"
+msgstr "Ta fshish këtë postim?"
+
+msgid "Delete"
+msgstr "Fshi"
+
+msgid "Edit post"
+msgstr "Ndrysho postimin"
+
+msgid "New post"
+msgstr "Postim i ri"
+
+#, python-format
+msgid "Only members of %(university)s can see it."
+msgstr "E shohin vetëm anëtarët e %(university)s."
+
+msgid "Publish"
+msgstr "Publiko"
+
+msgid "Only members of a university can post."
+msgstr "Vetëm anëtarët e një universiteti mund të postojnë."
+
+msgid "Saved."
+msgstr "U ruajt."
+
+msgid "Deleted."
+msgstr "U fshi."
 
 msgid "Social"
 msgstr "Rrjeti"
@@ -619,14 +702,18 @@ msgstr "përshkrimi"
 msgid "professors"
 msgstr "pedagogët"
 
-msgid "course"
-msgstr "lënda"
-
 msgid "courses"
 msgstr "lëndët"
 
 msgid "The faculty must belong to the course's university."
 msgstr "Fakulteti duhet t'i përkasë universitetit të lëndës."
+
+msgid "No posts yet. Be the first!"
+msgstr "Ende nuk ka postime. Bëhu i pari!"
+
+#, python-format
+msgid "Posts in this course are visible only to members of %(university)s."
+msgstr "Postimet e kësaj lënde i shohin vetëm anëtarët e %(university)s."
 
 msgid "Professors"
 msgstr "Pedagogët"

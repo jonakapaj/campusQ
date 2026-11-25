@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ post|truncatechars:60 }} · CampusQ{% endblock %}
+{% block content %}
+  <div class="mx-auto max-w-2xl">
+    <article class="card" id="post-{{ post.pk }}">
+      <div class="flex items-start justify-between gap-4">
+        {% include "posts/_meta.html" %}
+        <div class="flex items-center gap-2">
+          {% if post.author_id == user.pk %}
+            <a href="{% url 'post_edit' post.pk %}" class="btn-secondary">{% translate "Edit" %}</a>
+          {% endif %}
+          {% if post.author_id == user.pk or user.is_platform_admin %}
+            <form method="post" action="{% url 'post_delete' post.pk %}" data-confirm="{% translate 'Delete this post?' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-secondary text-red-600">{% translate "Delete" %}</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+      {% if post.title %}<h1 class="mt-4 text-2xl font-bold tracking-tight">{{ post.title }}</h1>{% endif %}
+      <div class="prose-post mt-4">{{ post.body_html|safe }}</div>
+    </article>
+    {% block below_post %}{% endblock %}
+  </div>
+{% endblock %}
