@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Home" %} · CampusQ{% endblock %}
+{% block content %}
+  <div class="grid gap-6 lg:grid-cols-[1fr_16rem]">
+    <div class="min-w-0">
+      <div class="flex items-center justify-between gap-4">
+        <nav class="flex gap-1 rounded-lg bg-stone-100 p-1 text-sm dark:bg-stone-800" aria-label="{% translate 'Feed' %}">
+          <a href="?tab=following" class="rounded-md px-3 py-1.5 font-medium {% if tab == 'following' %}bg-white shadow-xs dark:bg-stone-900{% else %}muted{% endif %}" {% if tab == 'following' %}aria-current="page"{% endif %}>{% translate "For you" %}</a>
+          <a href="?tab=university" class="rounded-md px-3 py-1.5 font-medium {% if tab == 'university' %}bg-white shadow-xs dark:bg-stone-900{% else %}muted{% endif %}" {% if tab == 'university' %}aria-current="page"{% endif %}>{% translate "University" %}</a>
+        </nav>
+        {% if user.university %}<a href="{% url 'post_create' %}" class="btn-primary">{% translate "New post" %}</a>{% endif %}
+      </div>
+
+      <div class="mt-4 space-y-4">
+        {% for post in page %}
+          {% include "posts/_card.html" %}
+        {% empty %}
+          <div class="card text-center text-sm muted">
+            {% if tab == "following" %}
+              {% translate "Nothing here yet. Follow courses and classmates to fill this feed." %}
+              <a href="{% if user.university %}{% url 'university_detail' user.university.pk %}{% else %}{% url 'university_list' %}{% endif %}" class="link">{% translate "Find courses" %}</a>
+            {% else %}
+              {% translate "No posts yet. Be the first!" %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if page.has_other_pages %}
+        <nav class="mt-6 flex items-center justify-between text-sm" aria-label="{% translate 'Pages' %}">
+          {% if page.has_previous %}<a href="?tab={{ tab }}&page={{ page.previous_page_number }}" class="link">← {% translate "Newer" %}</a>{% else %}<span></span>{% endif %}
+          {% if page.has_next %}<a href="?tab={{ tab }}&page={{ page.next_page_number }}" class="link">{% translate "Older" %} →</a>{% endif %}
+        </nav>
+      {% endif %}
+    </div>
+
+    <aside class="space-y-4">
+      <div class="card">
+        <p class="font-semibold">{% blocktranslate with name=user.display_name %}Hello, {{ name }}!{% endblocktranslate %}</p>
+        {% if user.university %}
+          <p class="mt-1 text-sm muted">{% blocktranslate with university=user.university.name %}You're a member of {{ university }}.{% endblocktranslate %}</p>
+          {% if not user.university.is_active %}
+            <p class="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-200 dark:ring-amber-500/20">{% translate "Your university is new to CampusQ. An admin will confirm it soon." %}</p>
+          {% endif %}
+          <a href="{% url 'university_detail' user.university.pk %}" class="link mt-3 inline-block text-sm">{% translate "Faculties and courses" %} →</a>
+        {% endif %}
+      </div>
+    </aside>
+  </div>
+{% endblock %}

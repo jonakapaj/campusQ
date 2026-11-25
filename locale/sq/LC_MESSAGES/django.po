@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 01:07+0100\n"
+"POT-Creation-Date: 2026-11-25 01:09+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -252,14 +252,39 @@ msgstr "Një administrator e ka verifikuar këtë pedagog."
 msgid "Verified Professor"
 msgstr "Profesor i verifikuar"
 
-msgid "Only with a university email"
-msgstr "Vetëm me email universitar"
+msgid "Home"
+msgstr "Kreu"
 
-msgid "Welcome to CampusQ"
-msgstr "Mirë se vini në CampusQ"
+msgid "Feed"
+msgstr "Rrjedha"
 
-msgid "The community for students and professors of Albanian universities."
-msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
+msgid "For you"
+msgstr "Për ty"
+
+msgid "University"
+msgstr "Universiteti"
+
+msgid "New post"
+msgstr "Postim i ri"
+
+msgid "Nothing here yet. Follow courses and classmates to fill this feed."
+msgstr ""
+"Ende asgjë këtu. Ndiq lëndë dhe shokë kursi për ta mbushur këtë rrjedhë."
+
+msgid "Find courses"
+msgstr "Gjej lëndë"
+
+msgid "No posts yet. Be the first!"
+msgstr "Ende nuk ka postime. Bëhu i pari!"
+
+msgid "Pages"
+msgstr "Faqet"
+
+msgid "Newer"
+msgstr "Më të rejat"
+
+msgid "Older"
+msgstr "Më të vjetrat"
 
 #, python-format
 msgid "Hello, %(name)s!"
@@ -274,8 +299,17 @@ msgstr ""
 "Universiteti yt është i ri në CampusQ. Një administrator do ta konfirmojë së "
 "shpejti."
 
-msgid "Feeds, courses and questions are coming next."
-msgstr "Së shpejti: postimet, lëndët dhe pyetjet."
+msgid "Faculties and courses"
+msgstr "Fakultetet dhe lëndët"
+
+msgid "Only with a university email"
+msgstr "Vetëm me email universitar"
+
+msgid "Welcome to CampusQ"
+msgstr "Mirë se vini në CampusQ"
+
+msgid "The community for students and professors of Albanian universities."
+msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
 
 msgid "Create an account"
 msgstr "Krijo një llogari"
@@ -423,9 +457,6 @@ msgstr "Komentet"
 
 msgid "Edit post"
 msgstr "Ndrysho postimin"
-
-msgid "New post"
-msgstr "Postim i ri"
 
 #, python-format
 msgid "Only members of %(university)s can see it."
@@ -788,9 +819,6 @@ msgstr "lëndët"
 msgid "The faculty must belong to the course's university."
 msgstr "Fakulteti duhet t'i përkasë universitetit të lëndës."
 
-msgid "No posts yet. Be the first!"
-msgstr "Ende nuk ka postime. Bëhu i pari!"
-
 #, python-format
 msgid "Posts in this course are visible only to members of %(university)s."
 msgstr "Postimet e kësaj lënde i shohin vetëm anëtarët e %(university)s."
@@ -806,9 +834,6 @@ msgid "%(counter)s member"
 msgid_plural "%(counter)s members"
 msgstr[0] "%(counter)s anëtar"
 msgstr[1] "%(counter)s anëtarë"
-
-msgid "Faculties and courses"
-msgstr "Fakultetet dhe lëndët"
 
 msgid "Other courses"
 msgstr "Lëndë të tjera"
