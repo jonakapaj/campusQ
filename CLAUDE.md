@@ -152,7 +152,7 @@ Agreed before Milestone 1 (2026-11-24):
   `migrate` until the custom User model lands (slice 1b).
 
 Agreed 2026-11-25:
-- Email verification uses a 6-character code, not a link. Signup still asks for
+- Email verification uses an 8-character code (XXXX-XXXX), not a link. Signup still asks for
   email + password; the code must be entered in the same browser session.
   allauth's "change email at the code step" stays off (it skips our domain check).
 - Outgoing email: Brevo SMTP (free tier), configured only through env vars.
@@ -176,6 +176,25 @@ Milestone 2 (2026-11-25, decided by Claude with the user's go-ahead):
 - HTMX 2.0.4 is vendored in `static/vendor/` (no npm). Every HTMX form also
   works as a plain POST without JS. The CSRF token is sent via `hx-headers`.
 - Views take `AuthedRequest` and use `core.auth.verified_required`.
+
+Milestone 3 (2026-11-25):
+- `Post.objects.visible_to(user)` is the single read rule: own university only,
+  hidden posts and suspended authors excluded (admins see all). Every list,
+  detail, comment, like and media check goes through it.
+- Markdown: Python-Markdown with raw HTML disabled, then nh3 sanitizing
+  against an allowlist. Rendered once on save into `body_html`. No images in
+  Markdown (tracking pixels); links get `rel="nofollow noopener noreferrer ugc"`.
+- Images: Pillow decodes and re-encodes every upload to WebP (EXIF/GPS
+  stripped, random file name, max 1600 px, 5 MB, 40 MP). Up to 4 per post,
+  added at creation only. Avatars are 256 px squares.
+- Media is never served as public files: `/media/<path>` serves only a path
+  that exactly matches an avatar of an active user or an image of a post the
+  viewer can see, with `Cache-Control: private`.
+- Comments are plain text (escaped, line breaks kept); only on posts.
+  Questions get answers in Milestone 4.
+- One like per user per post, never on your own post.
+- Feed counts use correlated COUNT subqueries (`posts/queries.py`) so likes x
+  comments can't multiply rows; the page is a flat number of queries.
 
 Known email domains (researched 2026-11-24; verify before seeding):
 - University of Tirana: students get `name_surname.<faculty>student@unitir.edu.al`
@@ -203,8 +222,13 @@ Known email domains (researched 2026-11-24; verify before seeding):
        - [x] 2a profiles + faculties
        - [x] 2b courses, university and course pages
        - [x] 2c follow users and courses (HTMX)
-3. [ ] **Feed & posts**: posts with Markdown and images, comments, reactions,
+3. [x] **Feed & posts**: posts with Markdown and images, comments, reactions,
        home feed (followed courses, people and your university)
+       - [x] 3a posts with safe Markdown
+       - [x] 3b pictures and profile photos (protected media)
+       - [x] 3c comments
+       - [x] 3d likes
+       - [x] 3e home feed
 4. [ ] **Q&A**: questions, answers, accepted answers, anonymous-to-peers,
        code highlighting
 5. [ ] **Roles & trust**: professor request flow, admin review page, badges,

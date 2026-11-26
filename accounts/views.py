@@ -21,7 +21,7 @@ def profile(request: AuthedRequest, pk: int) -> HttpResponse:
 
 @verified_required
 def profile_edit(request: AuthedRequest) -> HttpResponse:
-    form = ProfileForm(request.POST or None, instance=request.user)
+    form = ProfileForm(request.POST or None, request.FILES or None, instance=request.user)
     if request.method == "POST" and form.is_valid():
         form.save()
         messages.success(request, _("Your profile was saved."))

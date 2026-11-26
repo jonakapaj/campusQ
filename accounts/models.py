@@ -86,6 +86,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[MinValueValidator(1), MaxValueValidator(MAX_STUDY_YEAR)],
     )
     bio = models.TextField(_("bio"), max_length=500, blank=True)
+    avatar = models.ImageField(_("photo"), upload_to="avatars/", blank=True)
 
     is_active = models.BooleanField(_("active"), default=True)
     is_staff = models.BooleanField(

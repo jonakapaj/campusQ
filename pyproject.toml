@@ -7,6 +7,9 @@ dependencies = [
     "django>=5.2,<5.3",
     "django-allauth>=65",
     "django-stubs-ext>=6.1.2",
+    "markdown>=3.11.3",
+    "nh3>=0.3.8",
+    "pillow>=13.0.0",
     "psycopg[binary]>=3.2",
 ]
 
@@ -18,6 +21,7 @@ dev = [
     "pytest>=9.2.0",
     "pytest-django>=4.14.0",
     "ruff>=0.17.6",
+    "types-markdown>=3.11.3.20261122",
 ]
 
 [tool.ruff]

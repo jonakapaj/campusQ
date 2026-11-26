@@ -1,0 +1,6 @@
+{% load i18n %}
+<form id="comment-form" method="post" action="{% url 'comment_create' post.pk %}" hx-post="{% url 'comment_create' post.pk %}" hx-target="this" hx-swap="outerHTML" class="form mt-4 space-y-3" novalidate>
+  {% csrf_token %}
+  {% include "account/_fields.html" with form=comment_form %}
+  <button type="submit" class="btn-primary py-1.5">{% translate "Comment" %}</button>
+</form>

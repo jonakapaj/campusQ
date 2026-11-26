@@ -1,0 +1,20 @@
+{% load i18n %}
+<li id="comment-{{ comment.pk }}" class="flex gap-3">
+  {% include "core/_avatar.html" with person=comment.author size="size-8 text-xs" %}
+  <div class="min-w-0 flex-1 rounded-xl bg-stone-100 px-3 py-2 dark:bg-stone-800">
+    <div class="flex items-center justify-between gap-2 text-xs">
+      <p>
+        <a href="{% url 'profile' comment.author.pk %}" class="font-medium hover:underline">{{ comment.author.display_name }}</a>
+        {% include "core/_professor_badge.html" with person=comment.author %}
+        <span class="muted">· {{ comment.created_at|timesince }}</span>
+      </p>
+      {% if comment.author_id == user.pk or user.is_platform_admin %}
+        <form method="post" action="{% url 'comment_delete' comment.pk %}" hx-post="{% url 'comment_delete' comment.pk %}" hx-target="#comment-{{ comment.pk }}" hx-swap="outerHTML" data-confirm="{% translate 'Delete this comment?' %}">
+          {% csrf_token %}
+          <button type="submit" class="muted hover:text-red-600">{% translate "Delete" %}</button>
+        </form>
+      {% endif %}
+    </div>
+    <p class="mt-1 text-sm whitespace-pre-line break-words">{{ comment.body }}</p>
+  </div>
+</li>

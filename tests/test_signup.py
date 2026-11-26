@@ -1,4 +1,5 @@
 import re
+import time
 
 import pytest
 from allauth.account.models import EmailAddress
@@ -327,3 +328,53 @@ def test_home_shows_the_users_university(client: Client) -> None:
     assert "Përshëndetje, Ana!" in html
     assert "new.edu.al" in html
     assert "Një administrator do ta konfirmojë" in html
+
+
+@pytest.mark.django_db
+def test_code_expires_after_the_timeout(client: Client, monkeypatch: pytest.MonkeyPatch) -> None:
+    signup(client, "ana@unitir.edu.al")
+    code = sent_code()
+
+    later = time.time() + settings.ACCOUNT_EMAIL_VERIFICATION_BY_CODE_TIMEOUT + 1
+    monkeypatch.setattr(time, "time", lambda: later)
+    submit_code(client, code)
+
+    assert not EmailAddress.objects.get().verified
+    assert "_auth_user_id" not in client.session
+
+
+@pytest.mark.django_db
+def test_unverified_user_signing_in_gets_a_code_they_can_use(client: Client) -> None:
+    UserFactory.create(email="ana@unitir.edu.al", verified=False)
+
+    client.post(
+        reverse("account_login"),
+        {"login": "ana@unitir.edu.al", "password": "correct-horse-battery"},
+    )
+    submit_code(client, sent_code())
+
+    assert EmailAddress.objects.get().verified
+    assert "_auth_user_id" in client.session
+
+
+@pytest.mark.django_db
+def test_code_page_and_email_are_in_albanian(client: Client) -> None:
+    html = signup(client, "ana@unitir.edu.al")
+
+    assert "Kodi i konfirmimit" in html
+    assert "Dërgo një kod të ri" in html
+    body = str(mail.outbox[0].body)
+    assert "Kodi yt i konfirmimit është:" in body
+    assert "Mos ia jep askujt këtë kod" in body
+
+
+@pytest.mark.django_db
+def test_cancel_on_the_code_page_drops_the_pending_signup(client: Client) -> None:
+    signup(client, "ana@unitir.edu.al")
+    code = sent_code()
+
+    client.post(reverse("account_logout"), {"next": reverse("account_login")})
+    submit_code(client, code)
+
+    assert not EmailAddress.objects.get().verified
+    assert "_auth_user_id" not in client.session

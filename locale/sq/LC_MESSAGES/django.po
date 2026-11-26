@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CampusQ\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 00:56+0100\n"
+"POT-Creation-Date: 2026-11-25 01:09+0100\n"
 "PO-Revision-Date: 2026-11-24 20:30+0100\n"
 "Last-Translator: CampusQ maintainers\n"
 "Language-Team: Albanian\n"
@@ -161,6 +161,9 @@ msgstr "viti i studimeve"
 msgid "bio"
 msgstr "biografia"
 
+msgid "photo"
+msgstr "foto"
+
 msgid "active"
 msgstr "aktiv"
 
@@ -178,6 +181,15 @@ msgstr "përdorues"
 
 msgid "users"
 msgstr "përdoruesit"
+
+msgid "Photo"
+msgstr "Foto"
+
+msgid "JPEG, PNG or WebP, up to 5 MB. It is cropped to a square."
+msgstr "JPEG, PNG ose WebP, deri në 5 MB. Pritet në formë katrore."
+
+msgid "Remove my photo"
+msgstr "Hiq foton time"
 
 msgid "Faculty"
 msgstr "Fakulteti"
@@ -222,20 +234,57 @@ msgstr "Shqip"
 msgid "English"
 msgstr "Anglisht"
 
+msgid "Images can be at most 5 MB."
+msgstr "Imazhet mund të jenë deri në 5 MB."
+
+msgid "Use a JPEG, PNG or WebP image."
+msgstr "Përdor një imazh JPEG, PNG ose WebP."
+
+msgid "This image is too large."
+msgstr "Ky imazh është shumë i madh."
+
+msgid "This file is not a valid image."
+msgstr "Ky skedar nuk është imazh i vlefshëm."
+
 msgid "An admin verified this professor."
 msgstr "Një administrator e ka verifikuar këtë pedagog."
 
 msgid "Verified Professor"
 msgstr "Profesor i verifikuar"
 
-msgid "Only with a university email"
-msgstr "Vetëm me email universitar"
+msgid "Home"
+msgstr "Kreu"
 
-msgid "Welcome to CampusQ"
-msgstr "Mirë se vini në CampusQ"
+msgid "Feed"
+msgstr "Rrjedha"
 
-msgid "The community for students and professors of Albanian universities."
-msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
+msgid "For you"
+msgstr "Për ty"
+
+msgid "University"
+msgstr "Universiteti"
+
+msgid "New post"
+msgstr "Postim i ri"
+
+msgid "Nothing here yet. Follow courses and classmates to fill this feed."
+msgstr ""
+"Ende asgjë këtu. Ndiq lëndë dhe shokë kursi për ta mbushur këtë rrjedhë."
+
+msgid "Find courses"
+msgstr "Gjej lëndë"
+
+msgid "No posts yet. Be the first!"
+msgstr "Ende nuk ka postime. Bëhu i pari!"
+
+msgid "Pages"
+msgstr "Faqet"
+
+msgid "Newer"
+msgstr "Më të rejat"
+
+msgid "Older"
+msgstr "Më të vjetrat"
 
 #, python-format
 msgid "Hello, %(name)s!"
@@ -250,8 +299,17 @@ msgstr ""
 "Universiteti yt është i ri në CampusQ. Një administrator do ta konfirmojë së "
 "shpejti."
 
-msgid "Feeds, courses and questions are coming next."
-msgstr "Së shpejti: postimet, lëndët dhe pyetjet."
+msgid "Faculties and courses"
+msgstr "Fakultetet dhe lëndët"
+
+msgid "Only with a university email"
+msgstr "Vetëm me email universitar"
+
+msgid "Welcome to CampusQ"
+msgstr "Mirë se vini në CampusQ"
+
+msgid "The community for students and professors of Albanian universities."
+msgstr "Komuniteti për studentët dhe pedagogët e universiteteve shqiptare."
 
 msgid "Create an account"
 msgstr "Krijo një llogari"
@@ -279,6 +337,142 @@ msgid "Professors are verified by an admin, and their answers carry a badge."
 msgstr ""
 "Pedagogët verifikohen nga një administrator dhe përgjigjet e tyre kanë një "
 "shenjë dalluese."
+
+msgid "Posts"
+msgstr "Postimet"
+
+msgid "Pictures (optional)"
+msgstr "Foto (opsionale)"
+
+msgid "Up to 4 JPEG, PNG or WebP images, 5 MB each. Location data is removed."
+msgstr ""
+"Deri në 4 imazhe JPEG, PNG ose WebP, 5 MB secili. Të dhënat e vendndodhjes "
+"hiqen."
+
+msgid "Course (optional)"
+msgstr "Lënda (opsionale)"
+
+msgid "What's on your mind?"
+msgstr "Çfarë ke në mendje?"
+
+msgid "Markdown works: **bold**, *italic*, `code`, lists and links."
+msgstr ""
+"Funksionon Markdown: **i trashë**, *i pjerrët*, `kod`, lista dhe lidhje."
+
+msgid "No course"
+msgstr "Pa lëndë"
+
+msgid "Write something first."
+msgstr "Shkruaj diçka fillimisht."
+
+msgid "You can add at most 4 pictures."
+msgstr "Mund të shtosh deri në 4 foto."
+
+msgid "Write a comment"
+msgstr "Shkruaj një koment"
+
+msgid "Post"
+msgstr "Postim"
+
+msgid "Question"
+msgstr "Pyetje"
+
+msgid "course"
+msgstr "lënda"
+
+msgid "title"
+msgstr "titulli"
+
+msgid "text"
+msgstr "teksti"
+
+msgid "anonymous"
+msgstr "anonim"
+
+msgid "hidden by a moderator"
+msgstr "fshehur nga një moderator"
+
+msgid "post"
+msgstr "postim"
+
+msgid "posts"
+msgstr "postime"
+
+msgid "post image"
+msgstr "foto e postimit"
+
+msgid "post images"
+msgstr "foto të postimeve"
+
+msgid "comment"
+msgstr "komenti"
+
+msgid "comments"
+msgstr "komentet"
+
+msgid "reaction"
+msgstr "reagim"
+
+msgid "reactions"
+msgstr "reagime"
+
+msgid "Answers"
+msgstr "Përgjigjet"
+
+#, python-format
+msgid "%(counter)s comment"
+msgid_plural "%(counter)s comments"
+msgstr[0] "%(counter)s koment"
+msgstr[1] "%(counter)s komente"
+
+msgid "Delete this comment?"
+msgstr "Ta fshish këtë koment?"
+
+msgid "Delete"
+msgstr "Fshi"
+
+msgid "Comment"
+msgstr "Komento"
+
+msgid "Likes"
+msgstr "Pëlqime"
+
+msgid "Unlike"
+msgstr "Hiq pëlqimin"
+
+msgid "Like"
+msgstr "Pëlqe"
+
+msgid "edited"
+msgstr "ndryshuar"
+
+msgid "Edit"
+msgstr "Ndrysho"
+
+msgid "Delete this post?"
+msgstr "Ta fshish këtë postim?"
+
+msgid "Comments"
+msgstr "Komentet"
+
+msgid "Edit post"
+msgstr "Ndrysho postimin"
+
+#, python-format
+msgid "Only members of %(university)s can see it."
+msgstr "E shohin vetëm anëtarët e %(university)s."
+
+msgid "Publish"
+msgstr "Publiko"
+
+msgid "Only members of a university can post."
+msgstr "Vetëm anëtarët e një universiteti mund të postojnë."
+
+msgid "Saved."
+msgstr "U ruajt."
+
+msgid "Deleted."
+msgstr "U fshi."
 
 msgid "Social"
 msgstr "Rrjeti"
@@ -619,14 +813,15 @@ msgstr "përshkrimi"
 msgid "professors"
 msgstr "pedagogët"
 
-msgid "course"
-msgstr "lënda"
-
 msgid "courses"
 msgstr "lëndët"
 
 msgid "The faculty must belong to the course's university."
 msgstr "Fakulteti duhet t'i përkasë universitetit të lëndës."
+
+#, python-format
+msgid "Posts in this course are visible only to members of %(university)s."
+msgstr "Postimet e kësaj lënde i shohin vetëm anëtarët e %(university)s."
 
 msgid "Professors"
 msgstr "Pedagogët"
@@ -639,9 +834,6 @@ msgid "%(counter)s member"
 msgid_plural "%(counter)s members"
 msgstr[0] "%(counter)s anëtar"
 msgstr[1] "%(counter)s anëtarë"
-
-msgid "Faculties and courses"
-msgstr "Fakultetet dhe lëndët"
 
 msgid "Other courses"
 msgstr "Lëndë të tjera"

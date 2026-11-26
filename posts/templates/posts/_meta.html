@@ -1,0 +1,14 @@
+{% load i18n %}
+{% comment %}Author line of a post. Anonymous questions are handled in Milestone 4 via post.shown_author.{% endcomment %}
+<div class="flex items-center gap-3">
+  {% include "core/_avatar.html" with person=post.author size="size-9 text-sm" %}
+  <div class="min-w-0 text-sm">
+    <a href="{% url 'profile' post.author.pk %}" class="font-medium hover:underline">{{ post.author.display_name }}</a>
+    {% include "core/_professor_badge.html" with person=post.author %}
+    <p class="text-xs muted">
+      <a href="{% url 'post_detail' post.pk %}" class="hover:underline"><time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at|timesince }}</time></a>
+      {% if post.course %} · <a href="{% url 'course_detail' post.course.pk %}" class="hover:underline">{{ post.course.name }}</a>{% endif %}
+      {% if post.was_edited %} · {% translate "edited" %}{% endif %}
+    </p>
+  </div>
+</div>

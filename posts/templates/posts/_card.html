@@ -1,0 +1,15 @@
+{% load i18n %}
+<article class="card" id="post-{{ post.pk }}">
+  {% include "posts/_meta.html" %}
+  {% if post.title %}<h2 class="mt-3 text-lg font-semibold"><a href="{% url 'post_detail' post.pk %}" class="hover:underline">{{ post.title }}</a></h2>{% endif %}
+  <div class="prose-post mt-3">{{ post.body_html|safe }}</div>
+  {% include "posts/_images.html" %}
+  {% block card_footer %}
+    <div class="mt-4 flex items-center gap-4 text-sm">
+      {% include "posts/_like.html" %}
+      <a href="{% url 'post_detail' post.pk %}" class="muted hover:underline">
+        {% if post.is_question %}{% translate "Answers" %}{% else %}{% blocktranslate count counter=post.comment_count|default:0 %}{{ counter }} comment{% plural %}{{ counter }} comments{% endblocktranslate %}{% endif %}
+      </a>
+    </div>
+  {% endblock %}
+</article>
